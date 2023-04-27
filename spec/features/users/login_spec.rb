@@ -11,9 +11,9 @@ describe 'Login Page' do
       expect(page).to have_selector('#login_form')
       
       within('#login_form') do 
-        fill_in('email'), with: 'amanda@example.com'
-        fill_in('password'), with: 'password'
-        click_button('Login')
+        fill_in 'email', with: 'amanda@example.com'
+        fill_in 'password', with: 'password'
+        click_button 'Login'
       end
     end
   end
