@@ -1,0 +1,12 @@
+<% if current_user %>
+<% else %>
+  <div id="login_form">
+    <%= form_with url: '/sessions', method: :post, local: true do |f| %>
+      <%= f.label :email, 'Email Address:' %>
+      <%= f.text_field :email %><br>
+      <%= f.label :password, 'Password:' %>
+      <%= f.text_field :password %><br>
+      <%= f.submit 'Login' %>
+    <% end %>
+  </div>
+<% end %>
