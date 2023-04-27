@@ -15,6 +15,21 @@ describe 'Login Page' do
         fill_in 'password', with: 'password'
         click_button 'Login'
       end
+
+      expect(current_path).to eq(user_dashboard_path)
+    end
+
+    it 'reloads the login page with an error message if you enter bad credentials' do 
+      expect(page).to have_selector('#login_form')
+      
+      within('#login_form') do 
+        fill_in 'email', with: 'amanda@not_an_example.com'
+        fill_in 'password', with: 'password'
+        click_button 'Login'
+      end
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content("Sorry, your credentials are bad!")
     end
   end
 end
