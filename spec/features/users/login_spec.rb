@@ -31,5 +31,10 @@ describe 'Login Page' do
       expect(current_path).to eq(root_path)
       expect(page).to have_content("Sorry, your credentials are bad!")
     end
+
+    it 'has a link to register for an account' do 
+      expect(page).to have_content("Don't have an account yet? Register here")
+      expect(page).to have_link("here", href: new_user_path)
+    end
   end
 end
