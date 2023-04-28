@@ -7,12 +7,12 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    if user.save!
+    if user.save
       flash[:success] = "You have successfully registered! Please log in below."
       redirect_to root_path
     else
-      require 'pry'; binding.pry
-      flash[:error]
+      flash[:error] = "Error: #{error_message(user.errors)}"
+      redirect_to new_user_path
     end
   end
 
