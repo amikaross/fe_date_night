@@ -1,0 +1,137 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=3220%20N%20Williams%20St.%20Denver%20CO%2080205&key=AIzaSyAH_f2IIgiBBvM68aAX7kWbV5uBDsDBoCw
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.7.4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 04 May 2023 18:53:53 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, must-revalidate
+      Vary:
+      - Accept-Language
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Goog-Maps-Metro-Area:
+      - Denver, CO
+      Server:
+      - mafe
+      Content-Length:
+      - '2543'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Server-Timing:
+      - gfet4t7; dur=128
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "3220",
+                       "short_name" : "3220",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "North Williams Street",
+                       "short_name" : "N Williams St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Cole",
+                       "short_name" : "Cole",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver",
+                       "short_name" : "Denver",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "Denver County",
+                       "short_name" : "Denver County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "Colorado",
+                       "short_name" : "CO",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "80205",
+                       "short_name" : "80205",
+                       "types" : [ "postal_code" ]
+                    },
+                    {
+                       "long_name" : "4020",
+                       "short_name" : "4020",
+                       "types" : [ "postal_code_suffix" ]
+                    }
+                 ],
+                 "formatted_address" : "3220 N Williams St, Denver, CO 80205, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 39.7625194,
+                          "lng" : -104.9656074
+                       },
+                       "southwest" : {
+                          "lat" : 39.7624501,
+                          "lng" : -104.9657829
+                       }
+                    },
+                    "location" : {
+                       "lat" : 39.7624957,
+                       "lng" : -104.9657181
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 39.76383373029149,
+                          "lng" : -104.9644274197085
+                       },
+                       "southwest" : {
+                          "lat" : 39.7611357697085,
+                          "lng" : -104.9671253802915
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJc6duohV5bIcRK0I2lNoItTg",
+                 "types" : [ "premise" ]
+              }
+           ],
+           "status" : "OK"
+        }
+  recorded_at: Thu, 04 May 2023 18:53:53 GMT
+recorded_with: VCR 6.1.0
