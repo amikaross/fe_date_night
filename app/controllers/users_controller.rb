@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   def show 
+    if !current_user
+      flash[:error] = "You must log in to view this page."
+      redirect_to root_path
+    end
   end
 
   def new 
