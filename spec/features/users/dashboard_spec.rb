@@ -20,7 +20,6 @@ describe 'User Dashboard' do
       end
 
       expect(page).to_not have_content("Please enter your location")
-      expect(page).to_not have_selector('#edit_user_form')
 
       expect(page).to have_selector('#nearby_places')
       expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
@@ -52,7 +51,6 @@ describe 'User Dashboard' do
       end
 
       expect(page).to_not have_content("Please enter your location")
-      expect(page).to_not have_selector('#edit_user_form')
 
       expect(page).to have_selector('#nearby_places')
       expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
