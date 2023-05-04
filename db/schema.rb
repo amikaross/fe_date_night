@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2023_05_04_172901) do
     t.string "location"
     t.string "lat"
     t.string "long"
-    t.integer "radius"
+    t.integer "radius", default: 50000
     t.string "encrypted_token"
     t.string "encrypted_refresh_token"
     t.datetime "created_at", null: false
