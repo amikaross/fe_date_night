@@ -44,6 +44,20 @@ describe 'User Dashboard' do
 
       expect(page).to have_content("The address you entered is not valid, please try again.")
 
+      VCR.use_cassette('get_lat_long') do
+        within('#edit_user_form') do 
+          fill_in :location, with: '3220 N Williams St. Denver CO 80205'
+          click_button 'Submit'
+        end
+      end
+
+      expect(page).to_not have_content("Please enter your location")
+      expect(page).to_not have_selector('#edit_user_form')
+
+      expect(page).to have_selector('#nearby_places')
+      expect(user.location).to eq('3220 N Williams St. Denver CO 80205')
+      expect(user.lat).to eq('39.7624957')
+      expect(user.long).to eq('-104.9657181')
     end
   end
 end

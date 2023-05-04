@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true, email: true 
-  validates_presence_of :password
   validate :fetch_lat_and_long, on: :update
 
   has_secure_password
@@ -10,6 +9,7 @@ class User < ApplicationRecord
     if converted_location
       self.lat, self.long = converted_location[:lat], converted_location[:lng]
     else
+      self.location = nil
       errors.add(:location, "cannot be an invalid address")
     end
   end

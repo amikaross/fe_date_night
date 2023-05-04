@@ -1,4 +1,5 @@
 <h1> This is <%= current_user.email %>'s Dashboard! </h1>
+<%= link_to "Logout", session_path(current_user), method: :delete %>
 
 <% if current_user.location.nil? %> 
   <h2>Please enter your location in order to search for nearby places:</h2>
