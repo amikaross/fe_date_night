@@ -1,0 +1,13 @@
+<% if current_user %>
+<% else %>
+  <div id="login_form">
+    <%= form_with url: '/sessions', method: :post, local: true do |f| %>
+      <%= f.label :email, 'Email Address:' %><br>
+      <%= f.text_field :email %><br><br>
+      <%= f.label :password, 'Password:' %><br>
+      <%= f.text_field :password %><br><br>
+      <%= f.submit 'Login' %>
+    <% end %>
+  </div>
+  <h3>Don't have an account yet? Register <%= link_to "here", new_user_path %></h3>
+<% end %>
