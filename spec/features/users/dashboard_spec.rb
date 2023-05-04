@@ -23,7 +23,7 @@ describe 'User Dashboard' do
       expect(page).to_not have_selector('#edit_user_form')
 
       expect(page).to have_selector('#nearby_places')
-      expect(user.location).to eq('3220 N Williams St. Denver CO 80205')
+      expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')
     end
@@ -55,7 +55,7 @@ describe 'User Dashboard' do
       expect(page).to_not have_selector('#edit_user_form')
 
       expect(page).to have_selector('#nearby_places')
-      expect(user.location).to eq('3220 N Williams St. Denver CO 80205')
+      expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')
     end
