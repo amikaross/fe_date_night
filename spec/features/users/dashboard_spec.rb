@@ -59,5 +59,29 @@ describe 'User Dashboard' do
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')
     end
+
+    it 'shows me a link to logout' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+
+      visit root_path 
+
+      within('#login_form') do 
+        fill_in 'email', with: 'amanda@example.com'
+        fill_in 'password', with: 'password'
+        click_button 'Login'
+      end
+
+      expect(current_path).to eq(user_dashboard_path)
+      expect(page).to have_link("Logout", href: session_path(user))
+      click_link("Logout")
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_selector('#login_form')
+
+      visit user_dashboard_path
+
+      expect(page).to have_content("You must log in to view this page.")
+      expect(current_path).to eq(root_path)
+    end
   end
 end
