@@ -21,12 +21,12 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update(user_params)
+    if current_user.update_location(user_params)
       flash[:success] = "You have successfully added your address!"
     else
       flash[:error] = "The address you entered is not valid, please try again."
     end
-    redirect_to user_dashboard_path(current_user)
+    redirect_to user_dashboard_path
   end
 
   private

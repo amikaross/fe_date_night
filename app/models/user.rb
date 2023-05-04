@@ -1,16 +1,18 @@
 class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true, email: true 
-  validate :fetch_lat_and_long, on: :update
 
   has_secure_password
 
-  def fetch_lat_and_long
-    converted_location = GeocodeService.convert_address_to_latlong(location)
-    if converted_location
-      self.lat, self.long = converted_location[:lat], converted_location[:lng]
+  def update_location(user_params)
+    if response = fetch_lat_and_long(user_params["location"])
+      self.update(location: response[:formatted_address], lat: response[:lat_and_long][:lat], long: response[:lat_and_long][:lng])
     else
-      self.location = nil
       errors.add(:location, "cannot be an invalid address")
+      false
     end
+  end
+
+  def fetch_lat_and_long(location)
+    GeocodeService.convert_address_to_latlong(location)
   end
 end

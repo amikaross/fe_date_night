@@ -15,6 +15,9 @@ class GeocodeService
 
   def self.convert_address_to_latlong(location)
     response = get_url("/maps/api/geocode/json", location)
-    response[:results].empty? ? false : response[:results][0][:geometry][:location]
+    response[:results].empty? ? false : {
+                                          formatted_address: response[:results][0][:formatted_address],
+                                          lat_and_long: response[:results][0][:geometry][:location]
+                                        }
   end
 end
