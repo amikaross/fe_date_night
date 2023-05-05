@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :user_dates
-  has_many :dates, through: :user_dates
+  has_many :user_appointments
+  has_many :appointments, through: :user_appointments
   has_many :favorites
 
   validates :email, uniqueness: true, presence: true, email: true 
@@ -20,7 +20,7 @@ class User < ApplicationRecord
     GeocodeService.convert_address_to_latlong(location)
   end
 
-  def created_dates
-    require 'pry'; binding.pry
+  def created_appointments
+    appointments.where(user_appointments: {owner: true})
   end
 end

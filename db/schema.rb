@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_160917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dates", force: :cascade do |t|
+  create_table "appointments", force: :cascade do |t|
     t.string "name"
     t.string "place_id"
     t.boolean "recurring"
@@ -32,12 +32,12 @@ ActiveRecord::Schema.define(version: 2023_05_05_160917) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
-  create_table "user_dates", force: :cascade do |t|
+  create_table "user_appointments", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "date_id"
+    t.bigint "appointment_id"
     t.boolean "owner"
-    t.index ["date_id"], name: "index_user_dates_on_date_id"
-    t.index ["user_id"], name: "index_user_dates_on_user_id"
+    t.index ["appointment_id"], name: "index_user_appointments_on_appointment_id"
+    t.index ["user_id"], name: "index_user_appointments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,6 +55,6 @@ ActiveRecord::Schema.define(version: 2023_05_05_160917) do
   end
 
   add_foreign_key "favorites", "users"
-  add_foreign_key "user_dates", "dates"
-  add_foreign_key "user_dates", "users"
+  add_foreign_key "user_appointments", "appointments"
+  add_foreign_key "user_appointments", "users"
 end
