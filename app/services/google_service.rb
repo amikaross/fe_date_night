@@ -3,6 +3,11 @@ class GoogleService
     @current_user = current_user
   end
 
+  def search_place_by_keyword(keyword)
+    response = get_place_by_keyword(keyword)
+    response[:results].map { |place_data| Place.new(place_data) }
+  end
+
   def list_nearby_places_of_type(place_type)
     response = get_nearby_places(place_type)
     response[:results].map { |place_data| Place.new(place_data) }
@@ -39,6 +44,16 @@ class GoogleService
       req.params[:location] = "#{current_user.lat}, #{current_user.long}"
       req.params[:radius] = "#{current_user.radius}"
       req.params[:type] = type
+    end
+
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
+  def get_place_by_keyword(keyword)
+    response = conn.get("/maps/api/place/nearbysearch/json") do |req|
+      req.params[:location] = "#{current_user.lat}, #{current_user.long}"
+      req.params[:radius] = "#{current_user.radius}"
+      req.params[:keyword] = keyword
     end
 
     JSON.parse(response.body, symbolize_names: true)
