@@ -11,7 +11,6 @@ describe "Places Index" do
       end
     
       expect(page).to have_content("Mercury Cafe")
-    save_and_open_page
     end
   end
 end
