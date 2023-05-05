@@ -3,8 +3,6 @@ class UsersController < ApplicationController
     if !current_user
       flash[:error] = "You must log in to view this page."
       redirect_to root_path
-    else
-      @facade = UserDashboardFacade.new(current_user)
     end
   end
 

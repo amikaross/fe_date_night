@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_many :user_appointments
+  has_many :appointments, through: :user_appointments
+  has_many :favorites
+
   validates :email, uniqueness: true, presence: true, email: true 
 
   has_secure_password
@@ -13,6 +17,15 @@ class User < ApplicationRecord
   end
 
   def fetch_lat_and_long(location)
-    GeocodeService.convert_address_to_latlong(location)
+    service = GoogleService.new(self)
+    service.convert_address_to_latlong(location)
+  end
+
+  def owned_appointments
+    apps = appointments.where(user_appointments: {owner: true})
+  end
+
+  def unowned_appointments
+    appointments.where(user_appointments: {owner: false})
   end
 end
