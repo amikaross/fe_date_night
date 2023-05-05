@@ -44,11 +44,11 @@ describe User, type: :model do
     end
 
     describe '#unowned_appointments' do 
-    it 'returns only the appointments owned by that user' do 
-      expect(Appointment.all.count).to eq(9)
-      expect(user.appointments.count).to eq(4)
-      expect(user.unowned_appointments).to eq([user_invited_app1, user_invited_app2])
+      it 'returns only the appointments owned by that user' do 
+        expect(Appointment.all.count).to eq(9)
+        expect(user.appointments.count).to eq(4)
+        expect(user.unowned_appointments).to eq([user_invited_app1, user_invited_app2])
+      end
     end
-  end
   end
 end

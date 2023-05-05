@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def fetch_lat_and_long(location)
-    GeocodeService.convert_address_to_latlong(location)
+    GoogleService.convert_address_to_latlong(location)
   end
 
   def owned_appointments
