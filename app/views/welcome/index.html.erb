@@ -1,4 +1,5 @@
 <% if current_user %>
+  <%= link_to "Visit your dashboard", user_dashboard_path %>
 <% else %>
   <div id="login_form">
     <%= form_with url: '/sessions', method: :post, local: true do |f| %>

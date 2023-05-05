@@ -1,1 +1,25 @@
 <h1> This is <%= current_user.email %>'s Dashboard! </h1>
+<%= link_to "Logout", session_path(current_user), method: :delete %>
+
+<% if current_user.location.nil? %> 
+  <h2>Please enter your location in order to see for nearby places:</h2>
+  <div id="edit_user_form">
+    <%= form_with url: user_path(current_user), method: :patch, local: true do |f| %>
+      <%= f.label :location, 'Address:' %><br>
+      <%= f.text_field :location %><br><br>
+      <%= f.submit 'Submit' %>
+    <% end %>
+  </div>
+<% else %>
+  <p>Your location is currently set to: <%= current_user.location %></p>
+  <p>Change it here:</p>
+  <div id="edit_user_form">
+    <%= form_with url: user_path(current_user), method: :patch, local: true do |f| %>
+      <%= f.label :location, 'Address:' %><br>
+      <%= f.text_field :location %><br><br>
+      <%= f.submit 'Submit' %>
+    <% end %>
+  </div>
+  <div id="nearby_places">
+  </div>
+<% end %>

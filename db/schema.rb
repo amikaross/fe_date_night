@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_27_173852) do
+ActiveRecord::Schema.define(version: 2023_05_04_172901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dates", force: :cascade do |t|
+    t.string "name"
+    t.string "place_id"
+    t.boolean "recurring"
+    t.time "time"
+    t.date "date"
+    t.string "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_dates", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "date_id"
+    t.boolean "owner"
+    t.index ["date_id"], name: "index_user_dates_on_date_id"
+    t.index ["user_id"], name: "index_user_dates_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -22,11 +41,13 @@ ActiveRecord::Schema.define(version: 2023_04_27_173852) do
     t.string "location"
     t.string "lat"
     t.string "long"
-    t.integer "radius"
+    t.integer "radius", default: 50000
     t.string "encrypted_token"
     t.string "encrypted_refresh_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "user_dates", "dates"
+  add_foreign_key "user_dates", "users"
 end

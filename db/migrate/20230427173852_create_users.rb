@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :location
       t.string :lat
       t.string :long
-      t.integer :radius
+      t.integer :radius, default: 50000
       t.string :encrypted_token
       t.string :encrypted_refresh_token
 

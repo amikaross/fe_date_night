@@ -1,0 +1,2 @@
+class UserDate < ApplicationRecord
+end
