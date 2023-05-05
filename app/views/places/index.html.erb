@@ -1,1 +1,5 @@
 <h1>Places Nearby You!</h1>
+
+<% @nearby_places.each do |place| %>
+  <p><%= place.name %></p>
+<% end %>
