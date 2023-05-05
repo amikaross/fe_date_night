@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'User Dashboard' do 
   describe 'When I visit my dashboard logged in as a valid user' do 
-    it 'I see a request to fill in my location if I have not, which when filled out is replaced by a list of nearby places' do
+    it 'I see a request to fill in my location if I have not, which when filled out is replaced a link to explore nearby places' do
       user = User.create(email: "amanda@example.com", password: "password")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -21,7 +21,7 @@ describe 'User Dashboard' do
 
       expect(page).to_not have_content("Please enter your location")
 
-      expect(page).to have_selector('#nearby_places')
+      expect(page).to have_link("Explore Nearby Places", href: places_path)
       expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')
@@ -52,7 +52,7 @@ describe 'User Dashboard' do
 
       expect(page).to_not have_content("Please enter your location")
 
-      expect(page).to have_selector('#nearby_places')
+      expect(page).to have_link("Explore Nearby Places", href: places_path)
       expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')

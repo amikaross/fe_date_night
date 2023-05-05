@@ -11,6 +11,7 @@
     <% end %>
   </div>
 <% else %>
+  <%= link_to "Explore Nearby Places", places_path %>
   <p>Your location is currently set to: <%= current_user.location %></p>
   <p>Change it here:</p>
   <div id="edit_user_form">
