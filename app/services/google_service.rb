@@ -1,6 +1,7 @@
 class GoogleService
-  def self.list_places_near(current_user)
-    response = get_nearby_places(current_user)
+  def self.list_places_near(current_user, place_type)
+    response = get_nearby_places(current_user, place_type)
+    response[:results].map { |place_data| Place.new(place_data) }
   end
 
   def self.convert_address_to_latlong(location)
@@ -27,10 +28,11 @@ class GoogleService
     JSON.parse(response.body, symbolize_names: true)
   end
 
-  def self.get_nearby_places(current_user)
+  def self.get_nearby_places(current_user, type)
     response = conn.get("/maps/api/place/nearbysearch/json") do |req|
       req.params[:location] = "#{current_user.lat}, #{current_user.long}"
       req.params[:radius] = "#{current_user.radius}"
+      req.params[:type] = type
     end
 
     JSON.parse(response.body, symbolize_names: true)

@@ -10,8 +10,8 @@ describe "Places Index" do
         visit "/places"
       end
     
-      expect(page).to have_content("This is a place!")
-    
+      expect(page).to have_content("Mercury Cafe")
+    save_and_open_page
     end
   end
 end
