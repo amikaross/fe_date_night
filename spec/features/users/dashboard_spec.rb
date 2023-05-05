@@ -81,5 +81,39 @@ describe 'User Dashboard' do
       expect(page).to have_content("You must log in to view this page.")
       expect(current_path).to eq(root_path)
     end
+
+    it 'shows a list of dates (both owned and unowned)' do 
+      user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
+      other_user = create(:user)
+      # dates the user created
+      user_created_app1 = create(:appointment)
+      user_created_app2 = create(:appointment)
+      # appointments the user is attending but did not create
+      user_invited_app1 = create(:appointment)
+      user_invited_app2 = create(:appointment)
+
+      UserAppointment.create(user: user, appointment: user_created_app1, owner: true)
+      UserAppointment.create(user: user, appointment: user_created_app2, owner: true)
+      UserAppointment.create(user: user, appointment: user_invited_app1, owner: false)
+      UserAppointment.create(user: user, appointment: user_invited_app2, owner: false)
+      UserAppointment.create(user: other_user, appointment: user_invited_app1, owner: true)
+      UserAppointment.create(user: other_user, appointment: user_invited_app2, owner: true)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit user_dashboard_path
+
+      expect(page).to have_content("Your Dates:")
+      within("#owned_dates") do 
+        expect(page).to have_content("#{user_created_app1.name}")
+        expect(page).to have_content("#{user_created_app2.name}")
+      end
+
+      expect(page).to have_content("Invitations:")
+      within("#unowned_dates") do 
+        expect(page).to have_content("#{user_invited_app1.name}")
+        expect(page).to have_content("#{user_invited_app2.name}")
+      end
+    end
   end
 end

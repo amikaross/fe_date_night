@@ -22,25 +22,33 @@ describe User, type: :model do
     let(:user_created_app2) { create(:appointment) }
     # appointments the user is attending but did not create
     let(:user_invited_app1) { create(:appointment) }
-    let(:user_invitied_app2) { create(:appointment) }
+    let(:user_invited_app2) { create(:appointment) }
 
     before(:each) do 
       UserAppointment.create(user: user, appointment: user_created_app1, owner: true)
       UserAppointment.create(user: user, appointment: user_created_app2, owner: true)
       UserAppointment.create(user: user, appointment: user_invited_app1, owner: false)
-      UserAppointment.create(user: user, appointment: user_invitied_app2, owner: false)
+      UserAppointment.create(user: user, appointment: user_invited_app2, owner: false)
       UserAppointment.create(user: other_user, appointment: user_invited_app1, owner: true)
-      UserAppointment.create(user: other_user, appointment: user_invitied_app2, owner: true)
+      UserAppointment.create(user: other_user, appointment: user_invited_app2, owner: true)
       # appointments not associated with user at all 
       5.times { create(:appointment) }
     end
 
-    describe '#created_appointments' do 
-      it 'returns only the appointments created by that user' do 
+    describe '#owned_appointments' do 
+      it 'returns only the appointments owned by that user' do 
         expect(Appointment.all.count).to eq(9)
         expect(user.appointments.count).to eq(4)
-        expect(user.created_appointments).to eq([user_created_app1, user_created_app2])
+        expect(user.owned_appointments).to eq([user_created_app1, user_created_app2])
       end
     end
+
+    describe '#unowned_appointments' do 
+    it 'returns only the appointments owned by that user' do 
+      expect(Appointment.all.count).to eq(9)
+      expect(user.appointments.count).to eq(4)
+      expect(user.unowned_appointments).to eq([user_invited_app1, user_invited_app2])
+    end
+  end
   end
 end

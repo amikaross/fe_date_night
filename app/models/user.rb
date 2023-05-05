@@ -20,7 +20,11 @@ class User < ApplicationRecord
     GeocodeService.convert_address_to_latlong(location)
   end
 
-  def created_appointments
-    appointments.where(user_appointments: {owner: true})
+  def owned_appointments
+    apps = appointments.where(user_appointments: {owner: true})
+  end
+
+  def unowned_appointments
+    appointments.where(user_appointments: {owner: false})
   end
 end
