@@ -1,1 +1,16 @@
 <h1>Create a New Date</h1>
+<div id="new_appointment_form">
+  <%= form_with url: appointments_path, method: :post, local: true do |f| %>
+    <%= f.label :name, "Name:" %>
+    <%= f.text_field :name %>
+    <%= f.label :place_name, "Place:" %>
+    <%= f.text_field :place_name %>
+    <%= f.label :date, "Date:" %>
+    <%= f.date_field :date, data: {provide: "datepicker"}  %><br><br>
+    <%= f.label :time, "Start Time of Date" %>
+    <%= f.time_field :time %><br><br>
+    <%= f.label :notes, "Notes:" %>
+    <%= f.text_field :notes %>
+    <%= f.submit :'Create Date' %>
+  <% end %>
+</div>

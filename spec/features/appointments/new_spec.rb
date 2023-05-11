@@ -9,14 +9,15 @@ describe 'New Appointments Page' do
 
       visit new_appointment_path
 
-      expect(current_page).to have_selector('#new_appointment_form')
+      expect(page).to have_selector('#new_appointment_form')
 
       within('#new_appointment_form') do 
         fill_in :name, with: 'Sat Night Movie'
         fill_in :place_name, with: 'The house'
-        # fill_in :time, with: 
-        # fill_in :date, with: 
-        # fill_in :notes, with: 
+        fill_in :date, with: '2022/12/01'
+        fill_in :time, with: '19:00'
+        fill_in :notes, with: "This will be a good date."
+        click_button 'Create Date'
       end
     end
   end
