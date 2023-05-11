@@ -120,6 +120,8 @@ describe 'User Dashboard' do
       visit user_dashboard_path
 
       expect(page).to have_button("Create New Date")
+      click_button("Create New Date")
+      expect(current_path).to eq(new_appointment_path)
     end
   end
 end
