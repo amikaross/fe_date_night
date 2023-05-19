@@ -104,16 +104,24 @@ describe 'User Dashboard' do
       visit user_dashboard_path
 
       expect(page).to have_content("Your Dates:")
-      within("#owned_dates") do 
+      within("#user_dates") do 
         expect(page).to have_content("#{user_created_app1.name}")
         expect(page).to have_content("#{user_created_app2.name}")
-      end
-
-      expect(page).to have_content("Invitations:")
-      within("#unowned_dates") do 
         expect(page).to have_content("#{user_invited_app1.name}")
         expect(page).to have_content("#{user_invited_app2.name}")
       end
+    end
+
+    it 'has a button to create a new date' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit user_dashboard_path
+
+      expect(page).to have_button("Create New Date")
+      click_button("Create New Date")
+      expect(current_path).to eq(new_appointment_path)
     end
   end
 end

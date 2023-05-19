@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_160917) do
   create_table "appointments", force: :cascade do |t|
     t.string "name"
     t.string "place_id"
+    t.string "place_name"
     t.boolean "recurring"
     t.time "time"
     t.date "date"
