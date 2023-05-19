@@ -1,0 +1,6 @@
+<h1>Your Dates:</h1>
+<div id="user_dates">
+  <% current_user.appointments.each do |app| %>
+    <p><%= app.name %></p>
+  <% end %>
+</div>
