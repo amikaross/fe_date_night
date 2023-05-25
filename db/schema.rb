@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_160917) do
   create_table "favorites", force: :cascade do |t|
     t.string "google_id"
     t.bigint "user_id"
+    t.string "name"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
