@@ -23,16 +23,18 @@
   </div>
 </nav>
 
-<h1>Restaurants Nearby You!</h1>
+<div class="container">
+  <h1>Restaurants Nearby You!</h1>
 
-<div id="search_places_form">
-  <%= form_with url: places_path, method: :get, local: true do |f| %>
-    <%= f.label :search_term, 'Keyword:' %><br>
-    <%= f.text_field :search_term %><br><br>
-    <%= f.submit 'Submit' %>
+  <div id="search_places_form">
+    <%= form_with url: places_path, method: :get, local: true do |f| %>
+      <%= f.label :search_term, 'Keyword:' %><br>
+      <%= f.text_field :search_term %><br><br>
+      <%= f.submit 'Submit' %>
+    <% end %>
+  </div>
+
+  <% @results.each do |place| %>
+    <p><%= place.name %></p>
   <% end %>
 </div>
-
-<% @results.each do |place| %>
-  <p><%= place.name %></p>
-<% end %>
