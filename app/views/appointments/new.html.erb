@@ -1,18 +1,35 @@
 <div class="container">
+  <br>
   <h1>Create a New Date</h1>
+  <br>
   <div id="new_appointment_form">
     <%= form_with url: appointments_path, method: :post, local: true do |f| %>
-      <%= f.label :name, "Name:" %>
-      <%= f.text_field :name %>
-      <%= f.label :place_name, "Place:" %>
-      <%= f.text_field :place_name %>
-      <%= f.label :date, "Date:" %>
-      <%= f.date_field :date, data: {provide: "datepicker"}  %><br><br>
-      <%= f.label :time, "Start Time of Date" %>
-      <%= f.time_field :time %><br><br>
-      <%= f.label :notes, "Notes:" %>
-      <%= f.text_field :notes %>
-      <%= f.submit :'Create Date' %>
+      <div class="mb-3">
+        <%= f.label :name, "Name:", { class: "form-label" } %>
+        <%= f.text_field :name, { class: "form-control" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :place_name, "Place:", { class: "form-label" } %>
+        <%= f.text_field :place_name, { class: "form-control" } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :date, "Date:", { class: "form-label" } %>
+        <%= f.date_field :date, data: {provide: "datepicker"}  %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :time, "Start Time of Date", { class: "form-label" } %>
+        <%= f.time_field :time %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :notes, "Notes:", { class: "form-label" } %>
+        <%= f.text_field :notes, { class: "form-control" } %>
+      </div>
+
+      <%= f.submit :'Create Date', { class: "btn btn-primary" } %>
     <% end %>
   </div>
 </div>
