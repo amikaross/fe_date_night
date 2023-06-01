@@ -1,5 +1,5 @@
 class DetailedPlace
-  attr_reader :name, :hours_array, :address, :phone, :summary, :rating, :photo
+  attr_reader :place_id, :name, :hours_array, :address, :phone, :summary, :rating, :photo
 
   def initialize(data)
     @place_id = data[:place_id]

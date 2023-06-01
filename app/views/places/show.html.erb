@@ -1,5 +1,34 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">DATE NIGHT</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href=<%= user_dashboard_path %>>Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Explore Nearby Places</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=<%= appointments_path %>>Your Dates</a>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Favorites", favorites_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
   <h1><%= @place.name %></h1>
+  <%= link_to "Add To Favorites", favorites_path(:place_id => @place.place_id, :name => @place.name), method: :post %>
   <img src=<%= @place.photo %> alt="Photo of <%= @place.name %>" width="400">
   <p>Summary: <%= @place.summary %></p>
   <p>Hours: 
