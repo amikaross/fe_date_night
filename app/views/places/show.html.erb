@@ -1,1 +1,13 @@
-<img src=<%= @place.photo %> alt="Photo of <%= @place.name %>" width="400">
+<div class="container">
+  <h1><%= @place.name %></h1>
+  <img src=<%= @place.photo %> alt="Photo of <%= @place.name %>" width="400">
+  <p>Summary: <%= @place.summary %></p>
+  <p>Hours: 
+    <% @place.hours_array.each do |day| %>
+      <p><%= day %></p>
+    <% end %>
+  </p>
+  <p>phone number: <%= @place.phone %></p>
+  <p>address: <%= @place.address %></p>
+  <p>rating: <%= @place.rating %></p>
+</div>
