@@ -16,10 +16,10 @@
           <a class="nav-link active" href=<%= appointments_path %>>Your Dates</a>
         </li>
         <li class="nav-item">
-          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link" %>
+          <%= link_to "Favorites", favorites_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Favorites", favorites_path, class: "nav-link" %>
+          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link" %>
         </li>
       </ul>
     </div>
