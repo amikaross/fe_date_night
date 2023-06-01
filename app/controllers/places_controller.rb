@@ -12,6 +12,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def show
+    @place = google_service.get_place_by_id(params[:id])
+  end
+
   private
 
   def google_service

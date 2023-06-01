@@ -38,6 +38,6 @@
   </div>
 
   <% @results.each do |place| %>
-    <p><%= place.name %></p>
+    <p><%= link_to place.name, place_path(place.place_id) %></p>
   <% end %>
 </div>

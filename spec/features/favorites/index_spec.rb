@@ -12,9 +12,7 @@ describe 'Favorites Index' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
-      it 'displays my list of favorites' do 
-        require 'pry'; binding.pry
-
+      xit 'displays my list of favorites' do 
 
       end
     end

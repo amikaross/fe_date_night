@@ -1,5 +1,5 @@
 class Place
-  attr_reader :name
+  attr_reader :name, :place_id
   
   def initialize(place_data)
     @name = place_data[:name]

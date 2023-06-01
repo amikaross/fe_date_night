@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :sessions, only: [:create, :destroy]
   resources :users, only: [:new, :create, :update]
-  resources :places, only: [:index]
+  resources :places, only: [:index, :show]
   resources :appointments, only: [:new, :create, :index]
   resources :favorites, only: [:index]
 
