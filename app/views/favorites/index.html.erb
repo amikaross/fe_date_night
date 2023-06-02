@@ -29,6 +29,11 @@
 <div class="container">
   <h1>Your Favorites:</h1>
   <% @favorites.each do |favorite| %>
-    <p><%= link_to favorite.name, place_path(favorite.google_id) %></p>
+    <div id=<%= favorite.google_id %>>
+      <p>
+        <%= link_to favorite.name, place_path(favorite.google_id) %>
+        <%= button_to "Remove", favorite_path(favorite), method: "delete" %>
+      </p>
+    </div>
   <% end %>
 </div>
