@@ -1,7 +1,7 @@
 class DetailedPlace
   attr_reader :place_id, :name, :hours_array, :address, :phone, :summary, :rating, :photo
 
-  def initialize(data)
+  def initialize(data, photo_source)
     @place_id = data[:place_id]
     @name = data[:name]
     @hours_array = data[:current_opening_hours][:weekday_text]
@@ -9,6 +9,6 @@ class DetailedPlace
     @phone = data[:formatted_phone_number]
     @summary = data[:editorial_summary] ? data[:editorial_summary][:overview] : "Not available"
     @rating = data[:rating]
-    @photo = GoogleService.get_photo(data[:photos][0][:photo_reference])
+    @photo = photo_source
   end
 end
