@@ -82,7 +82,7 @@ describe 'User Dashboard' do
       expect(current_path).to eq(root_path)
     end
 
-    it 'shows a list of dates (both owned and unowned)' do 
+    it 'has a link to visit the dates index' do 
       user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
       other_user = create(:user)
       # dates the user created
@@ -103,13 +103,7 @@ describe 'User Dashboard' do
 
       visit user_dashboard_path
 
-      expect(page).to have_content("Your Dates:")
-      within("#user_dates") do 
-        expect(page).to have_content("#{user_created_app1.name}")
-        expect(page).to have_content("#{user_created_app2.name}")
-        expect(page).to have_content("#{user_invited_app1.name}")
-        expect(page).to have_content("#{user_invited_app2.name}")
-      end
+      expect(page).to have_link("Your Dates", href: appointments_path)
     end
 
     it 'has a button to create a new date' do 

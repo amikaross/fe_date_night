@@ -1,4 +1,13 @@
 class GoogleService
+  def self.get_photo(photo_reference)
+    response = conn.get("/maps/api/place/photo") do |req|
+      req.params[:photo_reference] = photo_reference
+      req.params[:maxwidth] = 400
+    end
+
+    response.headers["location"]
+  end
+
   def initialize(current_user)
     @current_user = current_user
   end
@@ -21,14 +30,33 @@ class GoogleService
                                         }
   end
 
+  def get_place_by_id(id)
+    response = get_place(id)
+    place = DetailedPlace.new(response[:result])
+  end
+
   private
 
   attr_reader :current_user
+
+  def self.conn 
+    Faraday.new(url: "https://maps.googleapis.com") do |req|
+      req.params[:key] = ENV['google_key']
+    end
+  end
 
   def conn 
     Faraday.new(url: "https://maps.googleapis.com") do |req|
       req.params[:key] = ENV['google_key']
     end
+  end
+
+  def get_place(id)
+    response = conn.get("/maps/api/place/details/json") do |req|
+      req.params[:place_id] = id
+    end
+
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def geocode(location)

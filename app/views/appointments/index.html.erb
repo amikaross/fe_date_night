@@ -7,13 +7,13 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href=<%= user_dashboard_path %>>Home</a>
+          <a class="nav-link" href=<%= user_dashboard_path %>>Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Explore Nearby Places</a>
+          <a class="nav-link" aria-current="page" href=<%= places_path %>>Explore Nearby Places</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=<%= appointments_path %>>Your Dates</a>
+          <a class="nav-link active" href=<%= appointments_path %>>Your Dates</a>
         </li>
         <li class="nav-item">
           <%= link_to "Favorites", favorites_path, class: "nav-link" %>
@@ -27,17 +27,10 @@
 </nav>
 
 <div class="container">
-  <h1>Restaurants Nearby You!</h1>
-
-  <div id="search_places_form">
-    <%= form_with url: places_path, method: :get, local: true do |f| %>
-      <%= f.label :search_term, 'Keyword:' %><br>
-      <%= f.text_field :search_term %><br><br>
-      <%= f.submit 'Submit' %>
+  <h1>Your Dates:</h1>
+  <div id="user_dates">
+    <% current_user.appointments.each do |app| %>
+      <p><%= app.name %></p>
     <% end %>
   </div>
-
-  <% @results.each do |place| %>
-    <p><%= link_to place.name, place_path(place.place_id) %></p>
-  <% end %>
 </div>

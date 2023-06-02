@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href=<%= user_dashboard_path %>>Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href=<%= places_path %>>Explore Nearby Places</a>
@@ -15,7 +15,7 @@
         <li class="nav-item">
           <a class="nav-link" href=<%= appointments_path %>>Your Dates</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <%= link_to "Favorites", favorites_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
@@ -27,29 +27,8 @@
 </nav>
 
 <div class="container">
-  <h1> This is <%= current_user.email %>'s Dashboard! </h1>
-  <% if current_user.location.nil? %> 
-    <h2>Please enter your location in order to see for nearby places:</h2>
-    <div id="edit_user_form">
-      <%= form_with url: user_path(current_user), method: :patch, local: true do |f| %>
-        <%= f.label :location, 'Address:' %><br>
-        <%= f.text_field :location %><br><br>
-        <%= f.submit 'Submit' %>
-      <% end %>
-    </div>
-  <% else %>
-    <p>Your location is currently set to: <%= current_user.location %></p>
-    <p>Change it here:</p>
-    <div id="edit_user_form">
-      <%= form_with url: user_path(current_user), method: :patch, local: true do |f| %>
-        <%= f.label :location, 'Address:' %><br>
-        <%= f.text_field :location %><br><br>
-        <%= f.submit 'Submit' %>
-      <% end %>
-    </div>
-    <div id="nearby_places">
-    </div>
+  <h1>Your Favorites:</h1>
+  <% @favorites.each do |favorite| %>
+    <p><%= link_to favorite.name, place_path(favorite.google_id) %></p>
   <% end %>
-
-  <%= button_to "Create New Date", new_appointment_path, method: :get %>
 </div>

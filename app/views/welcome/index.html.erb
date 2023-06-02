@@ -1,6 +1,7 @@
-<% if current_user %>
+<div class="container">
+  <% if current_user %>
   <%= link_to "Visit your dashboard", user_dashboard_path %>
-<% else %>
+  <% else %>
   <div id="login_form">
     <%= form_with url: '/sessions', method: :post, local: true do |f| %>
       <%= f.label :email, 'Email Address:' %><br>
@@ -11,4 +12,5 @@
     <% end %>
   </div>
   <h3>Don't have an account yet? Register <%= link_to "here", new_user_path %></h3>
-<% end %>
+  <% end %>
+</div>

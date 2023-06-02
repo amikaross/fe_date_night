@@ -8,6 +8,7 @@ describe User, type: :model do
   end
 
   describe 'relationships' do 
+    it { should have_many(:user_appointments) }
     it { should have_many(:appointments).through(:user_appointments) }
     it { should have_many(:favorites) }
   end
