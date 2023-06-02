@@ -26,10 +26,10 @@ describe 'The appointments index page' do
       expect(page).to have_content("Your Dates:")
 
       within("#user_dates") do 
-        expect(page).to have_link("#{user_created_app1.name}", href: date_path(user_created_app1))
-        expect(page).to have_link("#{user_created_app2.name}", href: date_path(user_created_app2))
-        expect(page).to have_link("#{user_invited_app1.name}", href: date_path(user_invited_app1))
-        expect(page).to have_link("#{user_invited_app2.name}", href: date_path(user_invited_app2))
+        expect(page).to have_link("#{user_created_app1.name}", href: appointment_path(user_created_app1))
+        expect(page).to have_link("#{user_created_app2.name}", href: appointment_path(user_created_app2))
+        expect(page).to have_link("#{user_invited_app1.name}", href: appointment_path(user_invited_app1))
+        expect(page).to have_link("#{user_invited_app2.name}", href: appointment_path(user_invited_app2))
       end
     end
   end
