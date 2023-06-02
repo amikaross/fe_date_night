@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'The appointments index page' do 
   describe 'When you visit /appointments as a logged in user' do 
-    it 'Shows a list of all the users dates' do 
+    it 'Shows a list of all the users dates, which are links to each dates show page' do 
       user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
       other_user = create(:user)
       # dates the user created
@@ -24,11 +24,12 @@ describe 'The appointments index page' do
       visit appointments_path
 
       expect(page).to have_content("Your Dates:")
+
       within("#user_dates") do 
-        expect(page).to have_content("#{user_created_app1.name}")
-        expect(page).to have_content("#{user_created_app2.name}")
-        expect(page).to have_content("#{user_invited_app1.name}")
-        expect(page).to have_content("#{user_invited_app2.name}")
+        expect(page).to have_link("#{user_created_app1.name}", href: date_path(user_created_app1))
+        expect(page).to have_link("#{user_created_app2.name}", href: date_path(user_created_app2))
+        expect(page).to have_link("#{user_invited_app1.name}", href: date_path(user_invited_app1))
+        expect(page).to have_link("#{user_invited_app2.name}", href: date_path(user_invited_app2))
       end
     end
   end
