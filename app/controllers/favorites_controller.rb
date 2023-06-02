@@ -12,4 +12,15 @@ class FavoritesController < ApplicationController
     end
     redirect_to place_path(params[:place_id])
   end
+
+  def destroy
+    favorite = Favorite.find(params[:id])
+    if favorite
+      favorite.delete
+      flash[:success] = "Successfully deleted #{favorite.name} from favorites!"
+    else
+      flash[:error] = "Something went wrong!"
+    end
+    redirect_to favorites_path
+  end
 end
