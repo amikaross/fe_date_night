@@ -7,7 +7,7 @@ class DetailedPlace
     @hours_array = data[:current_opening_hours][:weekday_text]
     @address = data[:formatted_address]
     @phone = data[:formatted_phone_number]
-    @summary = data[:editorial_summary][:overview]
+    @summary = data[:editorial_summary] ? data[:editorial_summary][:overview] : "Not available"
     @rating = data[:rating]
     @photo = GoogleService.get_photo(data[:photos][0][:photo_reference])
   end
