@@ -18,6 +18,10 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def show
+    @appointment = Appointment.find_by(id: params[:id])
+  end
+
   private
 
   def appointment_params
