@@ -1,3 +1,7 @@
+<% if @appointment.nil? %>
+  <%= Page Not Found %>
+<% end %>
+
 <h1><%= @appointment.name %>'s Show Page</h1>
 <p><%= @appointment.place_name %></p>
 <p><%= @appointment.formatted_time %></p>
@@ -5,5 +9,5 @@
 <p><%= @appointment.notes %></p>
 
 <% if @appointment.owner == current_user %> 
-  <%= button_to "Edit", edit_appointment_path(@appointment), method: :patch %>
+  <%= button_to "Edit", edit_appointment_path(@appointment), method: :get %>
 <% end %>
