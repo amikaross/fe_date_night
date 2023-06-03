@@ -36,6 +36,20 @@ describe 'Appointment Show Page' do
         visit appointment_path(@user_created_app2)
 
         expect(page).to have_content("#{@user_created_app2.name}'s Show Page")
+        expect(page).to have_content(@user_created_app2.place_name)
+        expect(page).to have_content(@user_created_app2.formatted_time)
+        expect(page).to have_content(@user_created_app2.formatted_date)
+        expect(page).to have_content(@user_created_app2.notes)
+      end
+
+      it 'has a button to edit if it is an appointment that is owned by the current user' do 
+        visit appointment_path(@user_created_app1)
+        
+        expect(page).to have_button("Edit")
+
+        visit appointment_path(@user_invited_app1)
+
+        expect(page).to_not have_button("Edit")
       end
     end
   end

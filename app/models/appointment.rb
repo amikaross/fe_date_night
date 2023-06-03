@@ -9,4 +9,8 @@ class Appointment < ApplicationRecord
   def formatted_date
     date.strftime("%A, %B %-d, %Y")
   end
+
+  def owner
+    users.where(user_appointments: {owner: true}).first
+  end
 end

@@ -3,3 +3,7 @@
 <p><%= @appointment.formatted_time %></p>
 <p><%= @appointment.formatted_date%></p>
 <p><%= @appointment.notes %></p>
+
+<% if @appointment.owner == current_user %> 
+  <%= button_to "Edit", edit_appointment_path(@appointment), method: :patch %>
+<% end %>
