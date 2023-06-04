@@ -11,7 +11,7 @@ class AppointmentsController < ApplicationController
     if appointment.save
       UserAppointment.create(user: current_user, appointment: appointment, owner: true)
       flash[:success] = "You have successfully created your Date!"
-      redirect_to user_dashboard_path
+      redirect_to appointments_path
     else
       flash[:error] = "Error: #{error_message(appointment.errors)}"
       redirect_to new_appointment_path
