@@ -28,10 +28,16 @@ class AppointmentsController < ApplicationController
 
   def update
     appointment = Appointment.find_by(id: params[:id])
-
     appointment.update(appointment_params)
     
     redirect_to appointment_path(appointment)
+  end
+
+  def destroy
+    appointment = Appointment.find_by(id: params[:id])
+    appointment.destroy
+
+    redirect_to appointments_path
   end
 
   private
