@@ -2,6 +2,18 @@ require 'rails_helper'
 
 describe 'The appointments index page' do 
   describe 'When you visit /appointments as a logged in user' do 
+    it 'has a button to create a new date' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit appointments_path
+
+      expect(page).to have_button("Create New Date")
+      click_button("Create New Date")
+      expect(current_path).to eq(new_appointment_path)
+    end
+
     it 'Shows a list of all the users dates, with buttons to view details and (if current_user is owner) delete' do 
       user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
       other_user = create(:user)

@@ -27,6 +27,7 @@
 </nav>
 
 <div class="container">
+  <%= button_to "Create New Date", new_appointment_path, method: :get %>
   <h1>Your Dates:</h1>
   <div id="user_dates">
     <% current_user.appointments.each do |app| %>
