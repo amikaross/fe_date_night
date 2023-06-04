@@ -9,7 +9,7 @@ class AppointmentsController < ApplicationController
   def create
     appointment = Appointment.new(appointment_params)
     if appointment.save
-      UserAppointment.create(user: current_user, appointment: appointment)
+      UserAppointment.create(user: current_user, appointment: appointment, owner: true)
       flash[:success] = "You have successfully created your Date!"
       redirect_to user_dashboard_path
     else
