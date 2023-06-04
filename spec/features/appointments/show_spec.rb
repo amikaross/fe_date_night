@@ -51,6 +51,26 @@ describe 'Appointment Show Page' do
 
         expect(page).to_not have_button("Edit")
       end
+
+      it 'reflects any changes made after edit button is clicked' do 
+        visit appointment_path(@user_created_app1)
+
+        expect(page).to_not have_content("This is not a Date Name")
+        expect(page).to_not have_content("These are not real notes.")
+
+        click_button("Edit")
+
+        expect(current_path).to eq(edit_appointment_path(@user_created_app1))
+
+        fill_in(:name, with: "This is not a Date Name")
+        fill_in(:notes, with: "These are not real notes.")
+    
+        click_button("Update")
+
+        expect(current_path).to eq(appointment_path(@user_created_app1))
+        expect(page).to have_content("This is not a Date Name")
+        expect(page).to have_content("These are not real notes.")
+      end
     end
   end
 end

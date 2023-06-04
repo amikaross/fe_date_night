@@ -27,10 +27,19 @@
 </nav>
 
 <div class="container">
+  <%= button_to "Create New Date", new_appointment_path, method: :get %>
   <h1>Your Dates:</h1>
   <div id="user_dates">
     <% current_user.appointments.each do |app| %>
-      <p><%= link_to app.name, appointment_path(app) %></p>
+      <div id=<%= app.id %>>
+        <p>
+          <%= app.name %>
+          <%= button_to "View Details", appointment_path(app), method: :get %>
+          <% if app.owner == current_user %> 
+            <%= button_to "Delete", appointment_path(app), method: :delete %>
+          <% end %>
+        </p>
+      </div>
     <% end %>
   </div>
 </div>

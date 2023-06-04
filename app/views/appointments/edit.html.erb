@@ -1,0 +1,35 @@
+<div class="container">
+  <br>
+  <h1>Edit Date</h1>
+  <br>
+  <div id="edit_appointment_form">
+    <%= form_with url: appointment_path(@appointment), method: :patch, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :name, "Name:", { class: "form-label" } %>
+        <%= f.text_field :name, { class: "form-control", value: @appointment.name } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :place_name, "Place:", { class: "form-label" } %>
+        <%= f.text_field :place_name, { class: "form-control", value: @appointment.place_name } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :date, "Date:", { class: "form-label" } %>
+        <%= f.date_field :date, { data: { provide: "datepicker" }, value: @appointment.date } %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :time, "Start Time of Date", { class: "form-label" } %>
+        <%= f.time_field :time, value: @appointment.time %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :notes, "Notes:", { class: "form-label" } %>
+        <%= f.text_field :notes, { class: "form-control", value: @appointment.notes } %>
+      </div>
+
+      <%= f.submit :'Update', { class: "btn btn-primary" } %>
+    <% end %>
+  </div>
+</div>
