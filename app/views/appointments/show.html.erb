@@ -1,13 +1,43 @@
-<% if @appointment.nil? %>
-  <%= Page Not Found %>
-<% end %>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">DATE NIGHT</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href=<%= user_dashboard_path %>>Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=<%= places_path %>>Explore Nearby Places</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=<%= appointments_path %>>Your Dates</a>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Favorites", favorites_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-<h1><%= @appointment.name %>'s Show Page</h1>
-<p><%= @appointment.place_name %></p>
-<p><%= @appointment.formatted_time %></p>
-<p><%= @appointment.formatted_date%></p>
-<p><%= @appointment.notes %></p>
+<div class="container">
+  <% if @appointment.nil? %>
+    <%= Page Not Found %>
+  <% end %>
 
-<% if @appointment.owner == current_user %> 
-  <%= button_to "Edit", edit_appointment_path(@appointment), method: :get %>
-<% end %>
+  <h1><%= @appointment.name %>'s Show Page</h1>
+  <p><%= @appointment.place_name %></p>
+  <p><%= @appointment.formatted_time %></p>
+  <p><%= @appointment.formatted_date%></p>
+  <p><%= @appointment.notes %></p>
+
+  <% if @appointment.owner == current_user %> 
+    <%= button_to "Edit", edit_appointment_path(@appointment), method: :get %>
+  <% end %>
+</div>
