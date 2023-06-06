@@ -5,6 +5,8 @@ ruby '2.7.4'
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'autoprefixer-rails'
 gem 'jquery-rails'
+gem 'sidekiq'
+gem 'sinatra'
 
 gem 'faraday'
 gem 'simplecov', require: false, group: :test

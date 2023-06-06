@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      UserNotifierMailer.welcome(user).deliver_now
+      WelcomeSenderJob.perform_later(user)
       flash[:success] = "You have successfully registered! Please log in below."
       redirect_to root_path
     else

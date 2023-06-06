@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   get '/', to: 'welcome#index', as: :root
   get '/dashboard', to: 'users#show', as: :user_dashboard
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end

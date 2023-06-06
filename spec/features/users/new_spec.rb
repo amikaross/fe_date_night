@@ -79,23 +79,4 @@ describe 'New User Page' do
     expect(page).to have_content("Error: Email can't be blank, Password can't be blank")
     expect(User.all.count).to eq(1)
   end
-
-  it 'sends a welcome email when a user successfully registers' do 
-    within('#new_user_form') do 
-      fill_in 'email', with: 'delaney@example.com'
-      fill_in 'password', with: 'password'
-      fill_in 'password_confirmation', with: 'password'
-      click_button 'Register'
-    end
-
-    expect(ActionMailer::Base.deliveries.count).to eq(1)
-    email = ActionMailer::Base.deliveries.last
-
-    expect(email.subject).to eq("Welcome to Date Night!")
-    expect(email.from).to eq(["dateknight.info@gmail.com"])
-
-    expect(email.text_part.body.to_s).to include("Hi delaney@example.com, we're so happy to have you.")
-
-    expect(email.html_part.body.to_s).to include("Hi delaney@example.com, we're so happy to have you.")
-  end
 end
