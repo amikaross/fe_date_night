@@ -1,5 +1,5 @@
 <main class="d-flex align-items-center py-4 bd-body-tertiary text-center">
-  <div class="form-signin w-100 m-auto">
+  <div class="form-signin w-100 m-auto" id="login_form">
     <%= form_with url: '/sessions', method: :post, local: true do |f| %>
       <%= image_tag("/assets/date-night-logo.png", :class => 'mb-4', size: 150) %>
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
@@ -7,7 +7,7 @@
       <%= f.password_field :password, { class: "form-control", placeholder: "Password", label_html: { class: "sr-only" } } %>
       <%= f.submit 'Login', { class: "form-control btn btn-lg btn-primary btn-block" } %>
       <br><br>
-      <h6>Don't have an account yet?<br>Register <%= link_to "here", new_user_path %></h6>
+      <h6>Don't have an account yet?<br> Register <%= link_to "here", new_user_path %></h6>
     <% end %>
   </div>
 </main>

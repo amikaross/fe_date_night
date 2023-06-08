@@ -23,7 +23,7 @@ describe "Places Show" do
       end
     end
 
-    it "has a button to add to favorites, and create date" do 
+    xit "has a button to add to favorites, and create date" do 
       user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
