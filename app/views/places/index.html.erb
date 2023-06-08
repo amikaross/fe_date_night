@@ -4,7 +4,7 @@
 
   <div id="search_places_form">
     <%= form_with url: places_path, method: :get, local: true do |f| %>
-      <%= f.text_field :search_term, placeholder: "Keyword search" %><br><br>
+      <%= f.text_field :search_term, placeholder: "Keyword search" %>
       <%= f.submit 'Submit' %>
     <% end %>
   </div>
@@ -18,7 +18,8 @@
         <td><%= place.name %></td>
         <td><%= place.vicinity %></td>
         <td>Google Rating: <%= place.rating%></td>
-        <td><%= link_to "See More", place_path(place.place_id) %></td>
+        <td><%= button_to "See Details", place_path(place.place_id), method: :get %></td>
+        <td><%= button_to "Add Favorite", favorites_path(:place_id => place.place_id, :name => place.name), method: :post %></td>
       <tr>
     <% end %>
   </tbody>
