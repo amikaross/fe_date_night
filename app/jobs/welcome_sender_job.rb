@@ -3,6 +3,5 @@ class WelcomeSenderJob < ApplicationJob
 
   def perform(user)
     UserNotifierMailer.welcome(user).deliver_now
-
   end
 end
