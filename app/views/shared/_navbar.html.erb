@@ -2,7 +2,7 @@
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <%= image_tag("/assets/date-night-logo-tiny.png") %>
+        <%= image_tag("/assets/date-night-logo.png", size: 55) %>
       </a>
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li>
@@ -17,9 +17,12 @@
         <li>
           <%= link_to "Favorites", favorites_path, class: "nav-link px-2 text-white" %>
         </li>
+        </ul>
+        <ul class="nav"
         <li>
-          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link" %>
+          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link link-body-emphasis px-2" %>
         </li>
+        </ul>
       </ul>
     </div>
   </div>
