@@ -1,16 +1,12 @@
-<div class="container">
-  <% if current_user %>
-  <%= link_to "Visit your dashboard", user_dashboard_path %>
-  <% else %>
-  <div id="login_form">
-    <%= form_with url: '/sessions', method: :post, local: true do |f| %>
-      <%= f.label :email, 'Email Address:' %><br>
-      <%= f.text_field :email %><br><br>
-      <%= f.label :password, 'Password:' %><br>
-      <%= f.text_field :password %><br><br>
-      <%= f.submit 'Login' %>
-    <% end %>
-  </div>
-  <h3>Don't have an account yet? Register <%= link_to "here", new_user_path %></h3>
-  <% end %>
-</div>
+<body class="text-center">
+      <%= form_with url: '/sessions', method: :post, :html => { class: "form-signin" }, local: true do |f| %>
+        <%= image_tag("/assets/datenightlogo.jpg", :class => 'mb-4') %>
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <%= f.email_field :email, { class: "form-control", placeholder: "Email address", label_html: { class: "sr-only" } } %>
+        <%= f.password_field :password, { class: "form-control", placeholder: "Password", label_html: { class: "sr-only" } } %>
+        <%= f.submit 'Login', { class: "form-control btn btn-lg btn-primary btn-block" } %>
+      <% end %>
+    <h6>Don't have an account yet? Register <%= link_to "here", new_user_path %></h6>
+</body>
+
+
