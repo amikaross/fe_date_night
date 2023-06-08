@@ -1,16 +1,15 @@
-<div class="container">
-  <% if current_user %>
-  <%= link_to "Visit your dashboard", user_dashboard_path %>
-  <% else %>
-  <div id="login_form">
+<main class="d-flex align-items-center py-4 bd-body-tertiary text-center">
+  <div class="form-signin w-100 m-auto">
     <%= form_with url: '/sessions', method: :post, local: true do |f| %>
-      <%= f.label :email, 'Email Address:' %><br>
-      <%= f.text_field :email %><br><br>
-      <%= f.label :password, 'Password:' %><br>
-      <%= f.text_field :password %><br><br>
-      <%= f.submit 'Login' %>
+      <%= image_tag("/assets/date-night-logo.png", :class => 'mb-4', size: 150) %>
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <%= f.email_field :email, { class: "form-control", placeholder: "Email address", label_html: { class: "sr-only" } } %>
+      <%= f.password_field :password, { class: "form-control", placeholder: "Password", label_html: { class: "sr-only" } } %>
+      <%= f.submit 'Login', { class: "form-control btn btn-lg btn-primary btn-block" } %>
+      <br><br>
+      <h6>Don't have an account yet?<br>Register <%= link_to "here", new_user_path %></h6>
     <% end %>
   </div>
-  <h3>Don't have an account yet? Register <%= link_to "here", new_user_path %></h3>
-  <% end %>
-</div>
+</main>
+
+

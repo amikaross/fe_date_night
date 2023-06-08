@@ -1,30 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">DATE NIGHT</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href=<%= places_path %>>Explore Nearby Places</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href=<%= appointments_path %>>Your Dates</a>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Favorites", favorites_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Logout", session_path(current_user), method: :delete, class: "nav-link" %>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<%= render "shared/navbar" %>
 
 <div class="container">
   <h1> This is <%= current_user.email %>'s Dashboard! </h1>

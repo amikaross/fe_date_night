@@ -31,3 +31,5 @@
 
 /coverage 
 /spec/fixtures
+
+/*.rdb

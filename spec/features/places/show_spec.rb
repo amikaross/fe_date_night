@@ -23,7 +23,7 @@ describe "Places Show" do
       end
     end
 
-    it "has a button to add to favorites" do 
+    it "has a button to add to favorites, and create date" do 
       user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -34,6 +34,11 @@ describe "Places Show" do
 
         expect(current_path).to eq(place_path("ChIJBaRy7994bIcRq8oIj4xn9EU"))
         expect(page).to have_content("Successfully added Cart-Driver RiNo to favorites!")
+
+        click_link("Create Date Here")
+
+        expect(current_path).to eq(new_appointment_path)
+        expect(current_page).to have_field(:place_name, with: "Cart-Driver RiNo")
       end
     end
   end
