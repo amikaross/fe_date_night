@@ -1,7 +1,7 @@
-<body class="d-flex align-items-center py-4 bd-body-tertiary text-center">
-  <main class="form-signin w-100 m-auto">
+<main class="d-flex align-items-center py-4 bd-body-tertiary text-center">
+  <div class="form-signin w-100 m-auto">
     <%= form_with url: '/sessions', method: :post, local: true do |f| %>
-      <%= image_tag("/assets/date-night-logo.png", :class => 'mb-4', style: "height:57;width:72;") %>
+      <%= image_tag("/assets/date-night-logo.png", :class => 'mb-4') %>
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
       <%= f.email_field :email, { class: "form-control", placeholder: "Email address", label_html: { class: "sr-only" } } %>
       <%= f.password_field :password, { class: "form-control", placeholder: "Password", label_html: { class: "sr-only" } } %>
@@ -9,7 +9,7 @@
       <br><br>
       <h6>Don't have an account yet?<br>Register <%= link_to "here", new_user_path %></h6>
     <% end %>
-  </main>
-</body>
+  </div>
+</main>
 
 
