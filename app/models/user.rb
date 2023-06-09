@@ -7,6 +7,14 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  def upcoming_appointments
+    appointments.where("date > ?", Time.now)
+  end
+
+  def past_appointments
+    appointments.where("date < ?", Time.now)
+  end
+
   def update_location(user_params)
     if response = fetch_lat_and_long(user_params["location"])
       self.update(location: response[:formatted_address], lat: response[:lat_and_long][:lat], long: response[:lat_and_long][:lng])

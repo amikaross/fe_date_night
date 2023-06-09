@@ -1,19 +1,83 @@
 <%= render "shared/navbar" %>
 
 <div class="container">
-  <%= button_to "Create New Date", new_appointment_path, method: :get %>
-  <h1>Your Dates:</h1>
-  <div id="user_dates">
-    <% current_user.appointments.each do |app| %>
-      <div id=<%= app.id %>>
-        <p>
-          <%= app.name %>
-          <%= button_to "View Details", appointment_path(app), method: :get %>
-          <% if app.owner == current_user %> 
-            <%= button_to "Delete", appointment_path(app), method: :delete %>
-          <% end %>
-        </p>
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
+        Your Dates - Past and Future</h1>
+        <p class="col-lg-10 fs-4">
+        Find your future dates and an archive of all your past dates here. Create new dates by clicking the Create New Date button. Edit, delete, add notes to your existing dates as you please.</p>
       </div>
-    <% end %>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <div id="p-4 p-md-5 border rounded-3 bg-body-tertiary">
+          <%= button_to "Create New Date", new_appointment_path, method: :get, class: "form-control w-100 btn btn-lg btn-primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div id="user_dates_upcoming">
+      <h3>Upcoming Dates</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_user.upcoming_appointments.each do |app| %>
+          <div id=<%= app.id %>>
+            <tr>
+              <td><%= app.name %></td>
+              <td><%= app.date %></td>
+              <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
+              <td><% if app.owner == current_user %> 
+                    <%= button_to "Delete", appointment_path(app), method: :delete %>
+                  <% else %>
+                    <%= button_to "Decline", "#" %>
+                  <% end %>
+              </td>
+            <tr>
+          </div>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div id="user_dates_archive">
+      <h3>Archived Dates</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_user.past_appointments.each do |app| %>
+          <div id=<%= app.id %>>
+            <tr>
+              <td><%= app.name %></td>
+              <td><%= app.date %></td>
+              <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
+              <td><% if app.owner == current_user %> 
+                    <%= button_to "Delete", appointment_path(app), method: :delete %>
+                  <% end %>
+              </td>
+            <tr>
+          </div>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

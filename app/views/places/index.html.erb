@@ -14,7 +14,7 @@
   <table class="table">
   <tbody>
     <% @results.each do |place| %>
-      <tr>
+      <tr id=<%= place.place_id %>>
         <td><%= place.name %></td>
         <td><%= place.vicinity %></td>
         <td>Google Rating: <%= place.rating%></td>
