@@ -24,8 +24,11 @@ class User < ApplicationRecord
     end
   end
 
+  def service
+    GoogleService.new(self)
+  end
+
   def fetch_lat_and_long(location)
-    service = GoogleService.new(self)
     service.convert_address_to_latlong(location)
   end
 
