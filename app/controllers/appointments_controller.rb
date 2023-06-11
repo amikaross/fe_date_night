@@ -8,6 +8,7 @@ class AppointmentsController < ApplicationController
 
   def create
     appointment = Appointment.new(appointment_params)
+    # appointment.place_name = current_user.favorites.find_by(google_id: params[:place_id]).name
     if appointment.save
       UserAppointment.create(user: current_user, appointment: appointment, owner: true)
       flash[:success] = "You have successfully created your Date!"

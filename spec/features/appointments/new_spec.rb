@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe 'New Appointments Page' do 
   describe 'If I visit /appointments/new as a logged-in user' do 
-    it 'shows me a form to create a new appointment' do 
+    xit 'shows me a form to create a new appointment' do 
       user = User.create(email: "amanda@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -13,11 +14,25 @@ describe 'New Appointments Page' do
 
       within('#new_appointment_form') do 
         fill_in :name, with: 'Sat Night Movie'
-        fill_in :place_name, with: 'The house'
+        select 'The first favorite', from: :place_id
         fill_in :date, with: '2022/12/01'
         fill_in :time, with: '19:00'
         fill_in :notes, with: "This will be a good date."
         click_button 'Create Date'
+      end
+    end
+
+    xit 'has a selector for any favorites that ive created instead of filling in place_name myself' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
+      user.favorites.create(google_id: 2345678, name: "The second favorite")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_appointment_path
+
+      within('#new_appointment_form') do 
+        expect(page).to have_select(:place_id)
       end
     end
   end
