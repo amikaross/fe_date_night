@@ -2,16 +2,20 @@ require 'rails_helper'
 
 describe 'User Dashboard' do 
   describe 'When I visit my dashboard logged in as a valid user' do 
-    it 'I see a request to fill in my location if I have not, which when filled out is replaced a link to explore nearby places' do
+    it 'I see a request to fill in my location if I have not' do
       user = User.create(email: "amanda@example.com", password: "password")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit user_dashboard_path
 
-      expect(page).to have_content("Please enter your location")
-      expect(page).to have_selector('#edit_user_form')
-      expect(page).to_not have_selector('#nearby_places')
+      expect(page).to have_content("You must set your current location in order to explore nearby places and add them to your favorites list. You're welcome to change this at any time so don't feel too stressed about it!")
+      
+      click_link("Explore Places")
+
+      expect(current_path).to eq(user_dashboard_path)
+      expect(page).to have_content("Error: You must fill in your current location.")
+
       VCR.use_cassette('get_lat_long') do
         within('#edit_user_form') do 
           fill_in :location, with: '3220 N Williams St. Denver CO 80205'
@@ -19,9 +23,8 @@ describe 'User Dashboard' do
         end
       end
 
-      expect(page).to_not have_content("Please enter your location")
+      expect(page).to_not have_content("You must set your current location in order to explore nearby places")
 
-      expect(page).to have_link("Explore Nearby Places", href: places_path)
       expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')
@@ -50,9 +53,9 @@ describe 'User Dashboard' do
         end
       end
 
-      expect(page).to_not have_content("Please enter your location")
+      expect(page).to_not have_content("You must set your current location")
 
-      expect(page).to have_link("Explore Nearby Places", href: places_path)
+      expect(page).to have_link("Explore Places", href: places_path)
       expect(user.location).to eq('3220 N Williams St, Denver, CO 80205, USA')
       expect(user.lat).to eq('39.7624957')
       expect(user.long).to eq('-104.9657181')

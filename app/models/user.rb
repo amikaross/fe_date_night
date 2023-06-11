@@ -7,6 +7,14 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  def upcoming_appointments
+    appointments.where("timestamp > ?", Time.now.change(offset: "+0000"))
+  end
+
+  def past_appointments
+    appointments.where("timestamp < ?", Time.now.change(offset: "+0000"))
+  end
+
   def update_location(user_params)
     if response = fetch_lat_and_long(user_params["location"])
       self.update(location: response[:formatted_address], lat: response[:lat_and_long][:lat], long: response[:lat_and_long][:lng])
@@ -16,8 +24,11 @@ class User < ApplicationRecord
     end
   end
 
+  def service
+    GoogleService.new(self)
+  end
+
   def fetch_lat_and_long(location)
-    service = GoogleService.new(self)
     service.convert_address_to_latlong(location)
   end
 

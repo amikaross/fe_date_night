@@ -1,27 +1,33 @@
 <%= render "shared/navbar" %>
 
 <div class="container">
-  <h1> This is <%= current_user.email %>'s Dashboard! </h1>
-  <% if current_user.location.nil? %> 
-    <h2>Please enter your location in order to see for nearby places:</h2>
-    <div id="edit_user_form">
-      <%= form_with url: user_path(current_user), method: :patch, local: true do |f| %>
-        <%= f.label :location, 'Address:' %><br>
-        <%= f.text_field :location %><br><br>
-        <%= f.submit 'Submit' %>
-      <% end %>
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-lg-7 text-center text-lg-start">
+        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">
+        Where should we go next?</h1>
+        <% if current_user.location.nil? %> 
+          <p class="col-lg-10 fs-4">
+          You must set your current location in order to 
+          explore nearby places and add them to your favorites list. 
+          You're welcome to change this at any time so don't feel too stressed about it!</p>
+        <% else %>
+          <p class="col-lg-10 fs-4">
+          Right now your location is set to <u><strong><%= current_user.location %></strong></u>. 
+          If you'd like to add spots to your favorites list from other cities, 
+          feel free to change your current location at any time.</p>
+        <% end %>
+      </div>
+      <div class="col-md-10 mx-auto col-lg-5">
+        <div id="edit_user_form">
+          <%= form_with url: user_path(current_user), method: :patch, :html => { class: "p-4 p-md-5 border rounded-3 bg-body-tertiary" }, local: true do |f| %>
+            <div class="floating-form mb-3">
+              <%= f.text_field :location, { class: "form-control", placeholder: "Update Location" } %>
+            </div>
+            <%= f.submit 'Submit', { class: "form-control w-100 btn btn-lg btn-primary"}  %>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% else %>
-    <p>Your location is currently set to: <%= current_user.location %></p>
-    <p>Change it here:</p>
-    <div id="edit_user_form">
-      <%= form_with url: user_path(current_user), method: :patch, local: true do |f| %>
-        <%= f.label :location, 'Address:' %><br>
-        <%= f.text_field :location %><br><br>
-        <%= f.submit 'Submit' %>
-      <% end %>
-    </div>
-    <div id="nearby_places">
-    </div>
-  <% end %>
+  </div>
 </div>

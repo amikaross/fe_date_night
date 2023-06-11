@@ -52,10 +52,12 @@ describe "Places Index" do
         end
       end
 
-      expect(page).to have_link("Cart-Driver RiNo")
+      expect(page).to have_button("See Details")
 
       VCR.use_cassette('cart_driver_show') do 
-        click_link("Cart-Driver RiNo")
+        within("#ChIJBaRy7994bIcRq8oIj4xn9EU") do 
+          click_button("See Details")
+        end
       end
 
       expect(current_path).to eq(place_path("ChIJBaRy7994bIcRq8oIj4xn9EU"))
