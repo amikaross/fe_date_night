@@ -8,6 +8,7 @@ class CreateAppointments < ActiveRecord::Migration[5.2]
       t.time :time
       t.date :date
       t.string :notes
+      t.datetime :timestamp
       t.timestamps
     end
   end

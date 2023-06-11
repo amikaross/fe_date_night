@@ -8,11 +8,11 @@ class User < ApplicationRecord
   has_secure_password
 
   def upcoming_appointments
-    appointments.where("date > ?", Time.now)
+    appointments.where("timestamp > ?", Time.now.change(offset: "+0000"))
   end
 
   def past_appointments
-    appointments.where("date < ?", Time.now)
+    appointments.where("timestamp < ?", Time.now.change(offset: "+0000"))
   end
 
   def update_location(user_params)
