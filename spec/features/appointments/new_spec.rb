@@ -14,7 +14,7 @@ describe 'New Appointments Page' do
 
       within('#new_appointment_form') do 
         fill_in :name, with: 'Sat Night Movie'
-        select 'The first favorite', from: :place_id
+        select 'The first favorite', from: :place_info
         fill_in :date, with: '2022/12/01'
         fill_in :time, with: '19:00'
         fill_in :notes, with: "This will be a good date."
@@ -43,7 +43,7 @@ describe 'New Appointments Page' do
       visit new_appointment_path
 
       within('#new_appointment_form') do 
-        expect(page).to have_select(:place_id, options: ["The first favorite", "The second favorite"])
+        expect(page).to have_select(:place_info, options: ["The first favorite", "The second favorite"])
       end
     end
   end

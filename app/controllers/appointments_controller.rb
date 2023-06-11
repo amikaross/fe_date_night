@@ -8,8 +8,8 @@ class AppointmentsController < ApplicationController
 
   def create
     appointment = Appointment.new(appointment_params)
-    appointment.place_name = current_user.favorites.find_by(google_id: params[:place_id]).name
-
+    appointment.place_name, appointment.place_id = JSON.parse(params[:place_info])
+    
     if appointment.save
       UserAppointment.create(user: current_user, appointment: appointment, owner: true)
       flash[:success] = "You have successfully created your Date!"
@@ -45,6 +45,6 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.permit(:name, :place_id, :date, :time, :notes)
+    params.permit(:name, :date, :time, :notes)
   end
 end
