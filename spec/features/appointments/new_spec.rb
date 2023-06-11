@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'New Appointments Page' do 
   describe 'If I visit /appointments/new as a logged-in user' do 
-    xit 'shows me a form to create a new appointment' do 
+    it 'shows me a form to create a new appointment' do 
       user = User.create(email: "amanda@example.com", password: "password")
       user.favorites.create(google_id: 1234567, name: "The first favorite")
 
@@ -20,9 +20,20 @@ describe 'New Appointments Page' do
         fill_in :notes, with: "This will be a good date."
         click_button 'Create Date'
       end
+
+      expect(current_path).to eq(appointments_path)
+      
+      within("#user_dates_archive") do 
+        expect(page).to have_content("Sat Night Movie")
+      end
+
+      date = Appointment.last 
+
+      expect(date.place_id).to eq("1234567")
+      expect(date.place_name).to eq("The first favorite")
     end
 
-    xit 'has a selector for any favorites that ive created instead of filling in place_name myself' do 
+    it 'has a selector for any favorites that ive created instead of filling in place_name myself' do 
       user = User.create(email: "amanda@example.com", password: "password")
       user.favorites.create(google_id: 1234567, name: "The first favorite")
       user.favorites.create(google_id: 2345678, name: "The second favorite")
@@ -32,7 +43,7 @@ describe 'New Appointments Page' do
       visit new_appointment_path
 
       within('#new_appointment_form') do 
-        expect(page).to have_select(:place_id)
+        expect(page).to have_select(:place_id, options: ["The first favorite", "The second favorite"])
       end
     end
   end
