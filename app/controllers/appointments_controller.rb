@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   def new 
+    @place_info = params[:place_info]
     if !current_user
       flash[:error] = "You must log in to view this page."
       redirect_to root_path
