@@ -46,6 +46,36 @@ describe 'New Appointments Page' do
         expect(page).to have_select(:place_info, options: ["The first favorite", "The second favorite"])
       end
     end
+
+    it 'has a field to type in an address to invite another user' do
+      user = User.create(email: "amanda@example.com", password: "password")
+      other_user = User.create(email: "haku@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_appointment_path
+
+      within('#new_appointment_form') do 
+        fill_in :name, with: 'Sat Night Movie'
+        select 'The first favorite', from: :place_info
+        fill_in :date, with: '2022/12/01'
+        fill_in :time, with: '19:00'
+        fill_in :notes, with: "This will be a good date."
+        within :invite, with: "haku@example.com"
+        click_button 'Create Date'
+      end
+
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+      email = ActionMailer::Base.deliveries.last
+
+      expect(email.subject).to eq("You've Been Invited!")
+      expect(email.reply_to).to eq(['amanda@example.com'])
+      expect(email.text_part.body.to_s).to include('Hello haku@example.com!')
+      expect(email.text_part.body.to_s).to include('amanda@example.com has invited you on a date! Click here to accept their invitation.')
+      expect(email.html_part.body.to_s).to include('Hello haku@example.com!')
+      expect(email.html_part.body.to_s).to include('amanda@example.com has invited you on a date! Click here to accept their invitation.')
+    end
   end
 
   describe 'If I visit /appointments/new when I have not logged in' do 
