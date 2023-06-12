@@ -1,18 +1,39 @@
 <%= render "shared/navbar" %>
 
-<div class="container">
-  <h1><%= @place.name %></h1>
-  <%= button_to "Add To Favorites", favorites_path(:place_id => @place.place_id, :name => @place.name), method: :post %>
-  <%= button_to "Make it a date!", new_appointment_path, params: { place_info: [@place.name, @place.place_id] }, method: :get %>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img src=<%= @place.photo %> alt="Photo of <%= @place.name %>" width="400">
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @place.name %></h1><br>
+      <p class="lead"><%= @place.summary %></p>
+      <p<strong>Google Rating:</strong> <%= @place.rating %></p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <%= button_to "Add To Favorites", favorites_path(:place_id => @place.place_id, :name => @place.name), { class: "btn btn-primary d-inline-flex align-items-center", method: :post } %>
+        <%= button_to "Make it a date!", new_appointment_path, { params: { place_info: [@place.name, @place.place_id] }, class: "btn btn-secondary d-inline-flex align-items-center", method: :get } %>
+      </div>
+    </div>
+  </div>
 
-  <img src=<%= @place.photo %> alt="Photo of <%= @place.name %>" width="400">
-  <p>Summary: <%= @place.summary %></p>
-  <p>Hours: 
-    <% @place.hours_array.each do |day| %>
-      <p><%= day %></p>
-    <% end %>
-  </p>
-  <p>phone number: <%= @place.phone %></p>
-  <p>address: <%= @place.address %></p>
-  <p>rating: <%= @place.rating %></p>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Address</th>
+      <th scope="col">Hours</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @place.phone %></td>
+      <td><%= @place.address %></td>
+      <td> 
+        <% @place.hours_array.each do |day| %>
+          <p><%= day %></p>
+        <% end %>
+      </td>
+    <tr>
+  </tbody>
+  </table>
 </div>
