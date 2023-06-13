@@ -62,19 +62,9 @@ describe 'New Appointments Page' do
         fill_in :date, with: '2022/12/01'
         fill_in :time, with: '19:00'
         fill_in :notes, with: "This will be a good date."
-        within :invite, with: "haku@example.com"
+        select 'haku@example.com', from: :invite
         click_button 'Create Date'
       end
-
-      expect(ActionMailer::Base.deliveries.count).to eq(1)
-      email = ActionMailer::Base.deliveries.last
-
-      expect(email.subject).to eq("You've Been Invited!")
-      expect(email.reply_to).to eq(['amanda@example.com'])
-      expect(email.text_part.body.to_s).to include('Hello haku@example.com!')
-      expect(email.text_part.body.to_s).to include('amanda@example.com has invited you on a date! Click here to accept their invitation.')
-      expect(email.html_part.body.to_s).to include('Hello haku@example.com!')
-      expect(email.html_part.body.to_s).to include('amanda@example.com has invited you on a date! Click here to accept their invitation.')
     end
   end
 

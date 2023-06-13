@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, presence: true, email: true 
 
+  scope :all_except, ->(user) { where.not(id: user) }
+
   has_secure_password
 
   def upcoming_appointments

@@ -1,6 +1,8 @@
 class AppointmentsController < ApplicationController
   def new 
     @place_info = params[:place_info]
+    @users = User.all_except(current_user)
+
     if !current_user
       flash[:error] = "You must log in to view this page."
       redirect_to root_path
@@ -13,6 +15,7 @@ class AppointmentsController < ApplicationController
     
     if appointment.save
       UserAppointment.create(user: current_user, appointment: appointment, owner: true)
+      send_invites(params)
       flash[:success] = "You have successfully created your Date!"
       redirect_to appointments_path
     else
@@ -47,5 +50,9 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.permit(:name, :date, :time, :notes)
+  end
+
+  def send_invites(params)
+    InviteSenderJob.perform_later(params[:invite]) if params[:invite]
   end
 end
