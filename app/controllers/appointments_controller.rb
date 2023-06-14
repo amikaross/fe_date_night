@@ -33,14 +33,10 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    if params[:accept_invite]
-      require 'pry'; binding.pry
-    else
-      appointment = Appointment.find_by(id: params[:id])
-      appointment.update(appointment_params)
-      
-      redirect_to appointment_path(appointment)
-    end
+    appointment = Appointment.find_by(id: params[:id])
+    appointment.update(appointment_params)
+    
+    redirect_to appointment_path(appointment)
   end
 
   def destroy
