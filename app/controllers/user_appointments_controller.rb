@@ -5,4 +5,11 @@ class UserAppointmentsController < ApplicationController
     
     redirect_to appointments_path
   end
+
+  def destroy
+    record = UserAppointment.find_by(id: params[:id])
+    record.destroy
+
+    redirect_to appointments_path
+  end
 end

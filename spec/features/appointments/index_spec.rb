@@ -107,8 +107,14 @@ describe 'The appointments index page' do
           expect(page).to have_button("View Details")
           expect(page).to have_button("Accept")
           expect(page).to have_button("Decline")
-        end
 
+          click_button("Decline")
+        end
+      end
+
+      expect(page).to_not have_selector("##{user_invited_app1.id}")
+
+      within("#user_dates_pending") do 
         within("##{user_invited_app2.id}") do 
           expect(page).to have_content(user_invited_app2.name)
           expect(page).to have_button("View Details")

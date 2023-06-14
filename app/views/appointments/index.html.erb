@@ -31,14 +31,12 @@
         </thead>
         <tbody>
         <% current_user.pending_invites.each do |app| %>
-          <div id=<%= app.id %>>
-            <tr>
-              <td><%= app.name %></td>
-              <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
-              <td><%= button_to "Accept", user_appointment_path(app.current_user_appointment(current_user)), method: :patch, params: { status: "accepted" } %></td>
-              <td><%= button_to "Decline", user_appointment_path(app.current_user_appointment(current_user)), method: :delete %></td>
-            <tr>
-          </div>
+          <tr id=<%= app.id %>>
+            <td><%= app.name %></td>
+            <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
+            <td><%= button_to "Accept", user_appointment_path(app.current_user_appointment(current_user)), method: :patch, params: { status: "accepted" } %></td>
+            <td><%= button_to "Decline", user_appointment_path(app.current_user_appointment(current_user)), method: :delete %></td>
+          <tr>
         <% end %>
         </tbody>
       </table>
@@ -59,19 +57,17 @@
         </thead>
         <tbody>
         <% current_user.upcoming_appointments.each do |app| %>
-          <div id=<%= app.id %>>
-            <tr>
-              <td><%= app.name %></td>
-              <td><%= app.date %></td>
-              <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
-              <td><% if app.owner == current_user %> 
-                    <%= button_to "Delete", appointment_path(app), method: :delete %>
-                  <% else %>
-                    <%= button_to "Decline", "#" %>
-                  <% end %>
-              </td>
-            <tr>
-          </div>
+          <tr id=<%= app.id %>>
+            <td><%= app.name %></td>
+            <td><%= app.date %></td>
+            <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
+            <td><% if app.owner == current_user %> 
+                  <%= button_to "Delete", appointment_path(app), method: :delete %>
+                <% else %>
+                  <%= button_to "Decline", "#" %>
+                <% end %>
+            </td>
+          <tr>
         <% end %>
         </tbody>
       </table>
@@ -92,17 +88,15 @@
         </thead>
         <tbody>
         <% current_user.past_appointments.each do |app| %>
-          <div id=<%= app.id %>>
-            <tr>
-              <td><%= app.name %></td>
-              <td><%= app.date %></td>
-              <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
-              <td><% if app.owner == current_user %> 
-                    <%= button_to "Delete", appointment_path(app), method: :delete %>
-                  <% end %>
-              </td>
-            <tr>
-          </div>
+          <tr id=<%= app.id %>>
+            <td><%= app.name %></td>
+            <td><%= app.date %></td>
+            <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
+            <td><% if app.owner == current_user %> 
+                  <%= button_to "Delete", appointment_path(app), method: :delete %>
+                <% end %>
+            </td>
+          <tr>
         <% end %>
         </tbody>
       </table>
