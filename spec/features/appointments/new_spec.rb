@@ -56,6 +56,8 @@ describe 'New Appointments Page' do
 
       visit new_appointment_path
 
+      expect(Appointment.all.count).to eq(0)
+
       within('#new_appointment_form') do 
         fill_in :name, with: 'Sat Night Movie'
         select 'The first favorite', from: :place_info
@@ -65,6 +67,28 @@ describe 'New Appointments Page' do
         select 'haku@example.com', from: :invite
         click_button 'Create Date'
       end
+
+      expect(Appointment.all.count).to eq(1)
+    end
+
+    it 'does not save a new appointment and reloads the page if there are missing values' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+      other_user = User.create(email: "haku@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_appointment_path
+
+      expect(Appointment.all.count).to eq(0)
+
+      within('#new_appointment_form') do 
+        click_button 'Create Date'
+      end
+
+      expect(current_path).to eq(new_appointment_path)
+      expect(Appointment.all.count).to eq(0)
+      expect(page).to have_content("Error: Name can't be blank, Date can't be blank, Time can't be blank")
     end
   end
 
