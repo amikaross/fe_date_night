@@ -6,6 +6,7 @@ class GoogleService
   def search_place_by_keyword(keyword)
     response = get_place_by_keyword(keyword)
     response[:results].map { |place_data| Place.new(place_data) }
+    # TO DO: Do not include result if type is "premise" OR if business status is != "OPERATIONAL"
   end
 
   def list_nearby_places_of_type(place_type)

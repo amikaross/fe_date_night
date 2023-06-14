@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :places, only: [:index, :show]
   resources :appointments
   resources :favorites, only: [:index, :create, :destroy]
+  resources :user_appointments, only: [:update, :destroy]
 
   get '/', to: 'welcome#index', as: :root
   get '/dashboard', to: 'users#show', as: :user_dashboard

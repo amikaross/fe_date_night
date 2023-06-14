@@ -5,14 +5,16 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, presence: true, email: true 
 
+  scope :all_except, ->(user) { where.not(id: user) }
+
   has_secure_password
 
   def upcoming_appointments
-    appointments.where("timestamp > ?", Time.now.change(offset: "+0000"))
+    appointments.not_pending.where("timestamp > ?", Time.now.change(offset: "+0000"))
   end
 
   def past_appointments
-    appointments.where("timestamp < ?", Time.now.change(offset: "+0000"))
+    appointments.not_pending.where("timestamp < ?", Time.now.change(offset: "+0000"))
   end
 
   def update_location(user_params)
@@ -38,5 +40,9 @@ class User < ApplicationRecord
 
   def unowned_appointments
     appointments.where(user_appointments: {owner: false})
+  end
+
+  def pending_invites
+    appointments.where(user_appointments: {status: "pending"})
   end
 end

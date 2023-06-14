@@ -11,10 +11,19 @@
         <%= f.text_field :name, { class: "form-control" } %>
       </div>
 
-      <div class="mb-3">
-        <%= f.label :place_name, "Place:", { class: "form-label" } %>
-        <%= f.text_field :place_name, { class: "form-control" } %>
-      </div>
+      <% if @place_info %>
+        <div class="mb-3">
+          <%= f.label :place, "Place Name:", { class: "form-label" } %>
+          <%= f.text_field :place, { class: "form-control", value: @place_info[0], disabled: true } %>
+          <% place_info = JSON.generate(@place_info) %>
+          <%= f.hidden_field :place_info, value: place_info %>
+        </div>
+      <% else %>
+        <div class="mb-3">
+          <%= f.label :place_info, "Place:", { class: "form-label" } %>
+          <%= f.select :place_info, options_for_select(current_user.favorites.map { |fave| [fave.name, [fave.name, fave.google_id]]}), { class: "form-control" } %>
+        </div>
+      <% end %>
 
       <div class="mb-3">
         <%= f.label :date, "Date:", { class: "form-label" } %>
@@ -24,6 +33,11 @@
       <div class="mb-3">
         <%= f.label :time, "Start Time of Date", { class: "form-label" } %>
         <%= f.time_field :time %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :invite, "Invite:", { class: "form-label" } %>
+        <%= f.select :invite, options_for_select(@users.map { |u| [u.email, u.id] }.unshift(["-no one-", nil])), { class: "form-control" } %>
       </div>
 
       <div class="mb-3">

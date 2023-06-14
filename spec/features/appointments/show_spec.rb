@@ -6,7 +6,7 @@ describe 'Appointment Show Page' do
       @user = User.create(email: "amanda@example.com", password: "password", location: "3220 N Williams St, Denver, CO 80205, USA", lat: "39.7624957", long: "-104.9657181" )
       other_user = create(:user)
       # dates the user created
-      @user_created_app1 = create(:appointment)
+      @user_created_app1 = create(:appointment, place_id: 'ChIJBaRy7994bIcRq8oIj4xn9EU')
       @user_created_app2 = create(:appointment)
       # appointments the user is attending but did not create
       @user_invited_app1 = create(:appointment)
@@ -70,6 +70,11 @@ describe 'Appointment Show Page' do
         expect(current_path).to eq(appointment_path(@user_created_app1))
         expect(page).to have_content("This is not a Date Name")
         expect(page).to have_content("These are not real notes.")
+      end
+
+      it 'has a link to that dates location (place show page)' do 
+        visit appointment_path(@user_created_app1)
+        expect(page).to have_link(@user_created_app1.place_name, href: place_path('ChIJBaRy7994bIcRq8oIj4xn9EU'))
       end
     end
   end

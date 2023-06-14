@@ -4,6 +4,7 @@ describe 'New Appointments Page' do
   describe 'If I visit /appointments/new as a logged-in user' do 
     it 'shows me a form to create a new appointment' do 
       user = User.create(email: "amanda@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
@@ -13,12 +14,81 @@ describe 'New Appointments Page' do
 
       within('#new_appointment_form') do 
         fill_in :name, with: 'Sat Night Movie'
-        fill_in :place_name, with: 'The house'
+        select 'The first favorite', from: :place_info
         fill_in :date, with: '2022/12/01'
         fill_in :time, with: '19:00'
         fill_in :notes, with: "This will be a good date."
         click_button 'Create Date'
       end
+
+      expect(current_path).to eq(appointments_path)
+      
+      within("#user_dates_archive") do 
+        expect(page).to have_content("Sat Night Movie")
+      end
+
+      date = Appointment.last 
+
+      expect(date.place_id).to eq("1234567")
+      expect(date.place_name).to eq("The first favorite")
+    end
+
+    it 'has a selector for any favorites that ive created instead of filling in place_name myself' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
+      user.favorites.create(google_id: 2345678, name: "The second favorite")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_appointment_path
+
+      within('#new_appointment_form') do 
+        expect(page).to have_select(:place_info, options: ["The first favorite", "The second favorite"])
+      end
+    end
+
+    it 'has a field to type in an address to invite another user' do
+      user = User.create(email: "amanda@example.com", password: "password")
+      other_user = User.create(email: "haku@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_appointment_path
+
+      expect(Appointment.all.count).to eq(0)
+
+      within('#new_appointment_form') do 
+        fill_in :name, with: 'Sat Night Movie'
+        select 'The first favorite', from: :place_info
+        fill_in :date, with: '2022/12/01'
+        fill_in :time, with: '19:00'
+        fill_in :notes, with: "This will be a good date."
+        select 'haku@example.com', from: :invite
+        click_button 'Create Date'
+      end
+
+      expect(Appointment.all.count).to eq(1)
+    end
+
+    it 'does not save a new appointment and reloads the page if there are missing values' do 
+      user = User.create(email: "amanda@example.com", password: "password")
+      other_user = User.create(email: "haku@example.com", password: "password")
+      user.favorites.create(google_id: 1234567, name: "The first favorite")
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit new_appointment_path
+
+      expect(Appointment.all.count).to eq(0)
+
+      within('#new_appointment_form') do 
+        click_button 'Create Date'
+      end
+
+      expect(current_path).to eq(new_appointment_path)
+      expect(Appointment.all.count).to eq(0)
+      expect(page).to have_content("Error: Name can't be blank, Date can't be blank, Time can't be blank")
     end
   end
 

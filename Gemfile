@@ -7,6 +7,7 @@ gem 'autoprefixer-rails'
 gem 'jquery-rails'
 gem 'sidekiq'
 gem 'sinatra'
+gem "net-http"
 
 gem 'faraday'
 gem 'simplecov', require: false, group: :test
