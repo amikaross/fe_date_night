@@ -18,6 +18,34 @@
   </div>
 
   <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div id="user_dates_pending">
+      <h3>Pending Invites</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% current_user.pending_invites.each do |app| %>
+          <div id=<%= app.id %>>
+            <tr>
+              <td><%= app.name %></td>
+              <td><%= button_to "View Details", appointment_path(app), method: :get %></td>
+              <td><%= button_to "Accept", user_appointment_path(app.current_user_appointment(current_user)), method: :patch, params: { status: "accepted" } %></td>
+              <td><%= button_to "Decline", user_appointment_path(app.current_user_appointment(current_user)), method: :delete %></td>
+            <tr>
+          </div>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
     <div id="user_dates_upcoming">
       <h3>Upcoming Dates</h3>
       <table class="table">
@@ -80,4 +108,5 @@
       </table>
     </div>
   </div>
+
 </div>

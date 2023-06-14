@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2023_05_05_160917) do
     t.bigint "user_id"
     t.bigint "appointment_id"
     t.boolean "owner"
+    t.string "status", default: "none"
     t.index ["appointment_id"], name: "index_user_appointments_on_appointment_id"
     t.index ["user_id"], name: "index_user_appointments_on_user_id"
   end

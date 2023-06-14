@@ -26,7 +26,7 @@ RSpec.describe UserNotifierMailer, type: :mailer do
       @invitee = User.create(email: 'amanda@example.com', password: 'password')
       @appointment = create(:appointment)
       UserAppointment.create(user: @user, appointment: @appointment, owner: true)
-      @mail = UserNotifierMailer.invite(@user.id, @invitee.id, @appointment.id)
+      @mail = UserNotifierMailer.invite(@user.id, @invitee.id)
     end
 
     it 'renders the headers' do 

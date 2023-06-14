@@ -6,6 +6,8 @@ class Appointment < ApplicationRecord
 
   before_save :get_date_time
 
+  scope :not_pending, -> { where.not(user_appointments: { status: "pending" }) }
+
   def formatted_time
     time.strftime("%I:%M %p")
   end
@@ -20,5 +22,9 @@ class Appointment < ApplicationRecord
 
   def owner
     users.where(user_appointments: {owner: true}).first
+  end
+
+  def current_user_appointment(current_user)
+    user_appointments.where(user: current_user).first
   end
 end

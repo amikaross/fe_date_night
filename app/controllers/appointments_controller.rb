@@ -57,6 +57,9 @@ class AppointmentsController < ApplicationController
     end
 
     def send_invites(params, appointment_id)
-      InviteSenderJob.perform_later(current_user.id, params[:invite], appointment_id) unless params[:invite].empty?
+      return if params[:invite].empty?
+      invitee = User.find_by(id: params[:invite])
+      UserAppointment.create(user: invitee, appointment_id: appointment_id, status: "pending")
+      InviteSenderJob.perform_later(current_user.id, params[:invite])
     end
 end
