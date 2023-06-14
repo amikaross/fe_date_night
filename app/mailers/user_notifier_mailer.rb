@@ -8,9 +8,9 @@ class UserNotifierMailer < ApplicationMailer
     )
   end
 
-  def invite(sender, user_id)
+  def invite(sender_id, user_id)
     @user = User.find_by(id: user_id)
-    @sender = sender
+    @sender = User.find_by(id: sender_id)
 
     mail(
       to: @user.email,

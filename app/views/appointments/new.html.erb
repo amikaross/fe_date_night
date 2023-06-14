@@ -37,7 +37,7 @@
 
       <div class="mb-3">
         <%= f.label :invite, "Invite:", { class: "form-label" } %>
-        <%= f.select :invite, options_for_select(@users.map { |u| [u.email, u.id] }), { class: "form-control" } %>
+        <%= f.select :invite, options_for_select(@users.map { |u| [u.email, u.id] }.unshift(["-no one-", nil])), { class: "form-control" } %>
       </div>
 
       <div class="mb-3">

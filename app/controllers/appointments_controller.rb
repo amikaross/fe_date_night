@@ -48,11 +48,11 @@ class AppointmentsController < ApplicationController
 
   private
 
-  def appointment_params
-    params.permit(:name, :date, :time, :notes)
-  end
+    def appointment_params
+      params.permit(:name, :date, :time, :notes)
+    end
 
-  def send_invites(params)
-    InviteSenderJob.perform_later(params[:invite]) if params[:invite]
-  end
+    def send_invites(params)
+      InviteSenderJob.perform_later(current_user.id, params[:invite]) unless params[:invite].empty?
+    end
 end
