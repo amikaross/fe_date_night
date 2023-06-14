@@ -24,7 +24,9 @@ RSpec.describe UserNotifierMailer, type: :mailer do
     before(:each) do 
       @user = User.create(email: 'lee@example.com', password: 'password')
       @invitee = User.create(email: 'amanda@example.com', password: 'password')
-      @mail = UserNotifierMailer.invite(@user.id, @invitee.id)
+      @appointment = create(:appointment)
+      UserAppointment.create(user: @user, appointment: @appointment, owner: true)
+      @mail = UserNotifierMailer.invite(@user.id, @invitee.id, @appointment.id)
     end
 
     it 'renders the headers' do 
@@ -35,9 +37,10 @@ RSpec.describe UserNotifierMailer, type: :mailer do
 
     it 'renders the body' do 
       expect(@mail.text_part.body.to_s).to include('Hello amanda@example.com!')
-      expect(@mail.text_part.body.to_s).to include('lee@example.com has invited you on a date! Click here to accept their invitation.')
+      expect(@mail.text_part.body.to_s).to include('lee@example.com has invited you on a date! Visit the link below to accept their invitation.')
+      expect(@mail.text_part.body.to_s).to include("https://localhost:3000/appointments")
       expect(@mail.html_part.body.to_s).to include('Hello amanda@example.com!')
-      expect(@mail.html_part.body.to_s).to include('lee@example.com has invited you on a date! Click here to accept their invitation.')
+      expect(@mail.html_part.body.to_s).to include('lee@example.com has invited you on a date! Visit the link below to accept their invitation.')
     end
   end
 end

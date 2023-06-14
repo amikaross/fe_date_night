@@ -15,7 +15,7 @@ class AppointmentsController < ApplicationController
     
     if appointment.save
       UserAppointment.create(user: current_user, appointment: appointment, owner: true)
-      send_invites(params)
+      send_invites(params, appointment.id)
       flash[:success] = "You have successfully created your Date!"
       redirect_to appointments_path
     else
@@ -33,10 +33,14 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    appointment = Appointment.find_by(id: params[:id])
-    appointment.update(appointment_params)
-    
-    redirect_to appointment_path(appointment)
+    if params[:accept_invite]
+      require 'pry'; binding.pry
+    else
+      appointment = Appointment.find_by(id: params[:id])
+      appointment.update(appointment_params)
+      
+      redirect_to appointment_path(appointment)
+    end
   end
 
   def destroy
@@ -52,7 +56,7 @@ class AppointmentsController < ApplicationController
       params.permit(:name, :date, :time, :notes)
     end
 
-    def send_invites(params)
-      InviteSenderJob.perform_later(current_user.id, params[:invite]) unless params[:invite].empty?
+    def send_invites(params, appointment_id)
+      InviteSenderJob.perform_later(current_user.id, params[:invite], appointment_id) unless params[:invite].empty?
     end
 end
