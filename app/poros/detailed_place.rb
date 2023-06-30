@@ -7,7 +7,7 @@ class DetailedPlace
     @hours_array = data[:current_opening_hours][:weekday_text]
     @address = data[:formatted_address]
     @phone = data[:formatted_phone_number]
-    @summary = data[:editorial_summary] ? data[:editorial_summary][:overview] : "Not available"
+    @summary = data[:editorial_summary] ? data[:editorial_summary][:overview] : "Summary not available"
     @rating = data[:rating]
     @photo = photo_source
   end
