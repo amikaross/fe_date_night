@@ -6,10 +6,14 @@
   <% end %>
 
   <h1><%= @appointment.name %>'s Show Page</h1>
-  <p><%= link_to @appointment.place_name, place_path(@appointment.place_id) %></p>
-  <p><%= @appointment.formatted_time %></p>
-  <p><%= @appointment.formatted_date%></p>
-  <p><%= @appointment.notes %></p>
+  <% if @appointment.place_id %>
+    <p>Location: <%= link_to @appointment.place_name, place_path(@appointment.place_id) %></p>
+  <% else %>
+    <p>Location: <%= @appointment.place_name %></p>
+  <% end %>
+  <p>Time: <%= @appointment.formatted_time %></p>
+  <p>Date: <%= @appointment.formatted_date%></p>
+  <p>Notes: <%= @appointment.notes %></p>
 
   <% if @appointment.owner == current_user %> 
     <%= button_to "Edit", edit_appointment_path(@appointment), method: :get %>

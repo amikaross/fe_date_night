@@ -11,8 +11,11 @@ class AppointmentsController < ApplicationController
 
   def create
     appointment = Appointment.new(appointment_params)
-    appointment.place_name, appointment.place_id = JSON.parse(params[:place_info])
-    
+    if !params[:custom_place] || params[:custom_place].empty?
+      appointment.place_name, appointment.place_id = JSON.parse(params[:place_info])
+    else
+      appointment.place_name, appointment.place_id = params[:custom_place], nil
+    end
     if appointment.save
       UserAppointment.create(user: current_user, appointment: appointment, owner: true)
       send_invites(params, appointment.id)

@@ -20,7 +20,6 @@ describe 'New Appointments Page' do
         fill_in :notes, with: "This will be a good date."
         click_button 'Create Date'
       end
-
       expect(current_path).to eq(appointments_path)
       
       within("#user_dates_archive") do 
@@ -43,7 +42,7 @@ describe 'New Appointments Page' do
       visit new_appointment_path
 
       within('#new_appointment_form') do 
-        expect(page).to have_select(:place_info, options: ["The first favorite", "The second favorite"])
+        expect(page).to have_select(:place_info, options: ["The first favorite", "The second favorite", "-custom write-in-"])
       end
     end
 
