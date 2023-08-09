@@ -54,18 +54,15 @@ This repo is for the web application "Date Night", a rails app for keeping track
   <li>Run <code>bundle install</code></li>
   <li>Run <code>bundle exec figaro install</code></li>
   <li>Run <code>rails db:{create,migrate}</code></li>
-  <li>To run this server, run <code>rails s</code> in your terminal</li>
-  <li>To stop the local server, use command <code>Control + c</code></li>
-  <li>
-  
-  [Sign up to use the Google Places](https://developers.google.com/maps/documentation/places/web-service/overview)
+  <li> [Sign up to use the Google Places](https://developers.google.com/maps/documentation/places/web-service/overview) </li>
 
   In config > application.yml
 
   ```
      google_key: <your_google_api_key>
   ```
- 
+  <li>To run this server, run <code>rails s</code> in your terminal</li>
+  <li>To stop the local server, use command <code>Control + c</code></li>
 
 
 </ol>
