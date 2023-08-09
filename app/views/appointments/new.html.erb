@@ -21,7 +21,11 @@
       <% else %>
         <div class="mb-3">
           <%= f.label :place_info, "Place:", { class: "form-label" } %>
-          <%= f.select :place_info, options_for_select(current_user.favorites.map { |fave| [fave.name, [fave.name, fave.google_id]]}), { class: "form-control" } %>
+          <%= f.select :place_info, options_for_select(current_user.favorites.map { |fave| [fave.name, [fave.name, fave.google_id]]}.append(["-custom write-in-", nil])), { class: "form-control" } %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :name, "Custom Location:", { class: "form-label" } %>
+          <%= f.text_field :place_name, { class: "form-control", placeholder: "Write-in a custom location" } %>
         </div>
       <% end %>
 
