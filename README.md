@@ -24,28 +24,20 @@ This repo is for the web application "Date Night", a rails app for keeping track
 
 # Tech and Tools
 #### Gems Used:
-  - [Pry](https://github.com/pry/pry-rails)
-  - [Faraday](https://lostisland.github.io/faraday/)
-  - [Orderly](https://github.com/jmondo/orderly)
   - [Capybara](https://github.com/teamcapybara/capybara)
-  - [Figaro](https://github.com/laserlemon/figaro)
   - [Webmock](https://github.com/bblimke/webmock)
   - [VCR](https://github.com/vcr/vcr)
-  - [Launchy](https://github.com/copiousfreetime/launchy)
   - [RSpec](https://github.com/rspec/rspec-metagem)
   - [Simple-Cov](https://github.com/simplecov-ruby/simplecov)
   - [Factory Bot for Rails](https://github.com/thoughtbot/factory_bot_rails)
   - [Faker](https://github.com/faker-ruby/faker)
-  - [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers)
   - [Bootstrap](https://github.com/twbs/bootstrap) 
 
 #### Built With
   - ![Ruby](https://img.shields.io/badge/Ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white) **2.7.4**
   - ![Rails](https://img.shields.io/badge/Ruby_on_Rails-CC0000?style=for-the-badge&logo=ruby-on-rails&logoColor=white) **5.2.8.1**
-  - <img src="app/assets/images/rspec_badge.png" alt="RSpec" height="30"> **3.12.0**
   - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
   - ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
-  - <img src="app/assets/images/CircleCi_logo.png" alt="Circle Ci" height="30">
 
 # Developer Setup
 <ol>
